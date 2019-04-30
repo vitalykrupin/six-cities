@@ -4,7 +4,7 @@
   "private": true,
   "description": "Личный проект «Шесть городов» от HTML Academy",
   "scripts": {
-    "eslint": "eslint src/**/*.js",
+    "eslint": "eslint src/**/*.js src/**/*.jsx",
     "test": "npm run eslint",
     "build": "webpack --mode development",
     "start": "webpack-dev-server"
@@ -23,5 +23,9 @@
   },
   "engines": {
     "node": "10"
+  },
+  "dependencies": {
+    "react": "16.8.6",
+    "react-dom": "16.8.6"
   }
 }
