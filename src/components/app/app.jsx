@@ -1,12 +1,8 @@
 import React from 'react';
+import MainScreen from '../main-screen/main-screen';
 
 const App = () => {
-  return (
-    <div>
-      <h1>Welcome</h1>
-      <p>Some content</p>
-    </div>
-  );
+  return <MainScreen />;
 };
 
 export default App;
