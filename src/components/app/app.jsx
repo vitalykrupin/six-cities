@@ -1,8 +1,14 @@
 import React from 'react';
 import MainScreen from '../main-screen/main-screen';
+import PropTypes from 'prop-types';
 
-const App = () => {
-  return <MainScreen />;
+// eslint-disable-next-line react/prop-types
+const App = ({places}) => {
+  return <MainScreen places={places} />;
+};
+
+App.PropTypes = {
+  places: PropTypes.array
 };
 
 export default App;
