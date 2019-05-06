@@ -84,6 +84,7 @@ exports[`Main screen correctly renders 1`] = `
     >
       <a
         href="#"
+        onClick={[Function]}
       >
         Some title
       </a>
