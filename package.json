@@ -5,10 +5,10 @@
   "description": "Личный проект «Шесть городов» от HTML Academy",
   "scripts": {
     "eslint": "eslint src/**/*.js src/**/*.jsx",
+    "jest": "npm run jest",
     "test": "npm run eslint && jest",
     "build": "webpack --mode development",
-    "start": "webpack-dev-server",
-    "jest": "npm run jest"
+    "start": "webpack-dev-server"
   },
   "devDependencies": {
     "@babel/core": "7.4.4",

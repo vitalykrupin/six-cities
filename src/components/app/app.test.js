@@ -1,10 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MainScreen from './main-screen';
+import App from './app';
 
-it(`Main screen correctly renders`, () => {
+it(`App correctly renders`, () => {
   const tree = renderer
-    .create(<MainScreen places={[]}/>)
+    .create(<App places={[]}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

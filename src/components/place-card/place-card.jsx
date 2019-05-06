@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 const PlaceCard = ({title}) => {
   return (
     <article className="cities__place-card place-card">
@@ -38,7 +37,7 @@ const PlaceCard = ({title}) => {
   );
 };
 
-PlaceCard.PropTypes = {
+PlaceCard.propTypes = {
   title: PropTypes.string
 };
 
