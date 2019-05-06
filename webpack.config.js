@@ -1,4 +1,5 @@
 const path = require(`path`);
+const webpack = require(`webpack`);
 
 module.exports = {
   entry: `./src/index.jsx`,
@@ -13,6 +14,13 @@ module.exports = {
     compress: false,
     port: 8080,
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      'React': `react`,
+      'PropTypes': `prop-types`,
+      'ReactDOM': `react-dom`
+    })
+  ],
   module: {
     rules: [
       {
@@ -24,8 +32,8 @@ module.exports = {
       }
     ],
   },
-  devtool: `source-map`,
   resolve: {
     extensions: [`*`, `.js`, `.jsx`]
-  }
+  },
+  devtool: `source-map`,
 };

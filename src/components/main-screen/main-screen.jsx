@@ -2,7 +2,6 @@ import React from 'react';
 import PlaceCard from '../place-card/place-card';
 import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 const MainScreen = ({places}) => {
   return (
     <React.Fragment>
@@ -117,7 +116,7 @@ const MainScreen = ({places}) => {
   );
 };
 
-MainScreen.PropTypes = {
+MainScreen.propTypes = {
   places: PropTypes.array
 };
 
