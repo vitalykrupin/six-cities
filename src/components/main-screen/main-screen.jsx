@@ -1,6 +1,5 @@
-import React from 'react';
 import PlaceCard from '../place-card/place-card';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 const MainScreen = ({places}) => {
   return (
