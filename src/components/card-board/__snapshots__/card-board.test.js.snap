@@ -12,7 +12,6 @@ exports[`component renders correctly 1`] = `
     >
       <a
         href="#"
-        onClick={[Function]}
       >
         <img
           alt="Place image"
@@ -46,6 +45,7 @@ exports[`component renders correctly 1`] = `
         </div>
         <button
           className="place-card__bookmark-button button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -89,7 +89,6 @@ exports[`component renders correctly 1`] = `
       >
         <a
           href="#"
-          onClick={[Function]}
         >
           Beautiful, luxurious apartment at great location
         </a>
@@ -109,7 +108,6 @@ exports[`component renders correctly 1`] = `
     >
       <a
         href="#"
-        onClick={[Function]}
       >
         <img
           alt="Place image"
@@ -143,6 +141,7 @@ exports[`component renders correctly 1`] = `
         </div>
         <button
           className="place-card__bookmark-button button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -186,7 +185,6 @@ exports[`component renders correctly 1`] = `
       >
         <a
           href="#"
-          onClick={[Function]}
         >
           Wood and stone place
         </a>
@@ -206,7 +204,6 @@ exports[`component renders correctly 1`] = `
     >
       <a
         href="#"
-        onClick={[Function]}
       >
         <img
           alt="Place image"
@@ -240,6 +237,7 @@ exports[`component renders correctly 1`] = `
         </div>
         <button
           className="place-card__bookmark-button button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -283,7 +281,6 @@ exports[`component renders correctly 1`] = `
       >
         <a
           href="#"
-          onClick={[Function]}
         >
           Canal View Prinsengracht
         </a>
@@ -303,7 +300,6 @@ exports[`component renders correctly 1`] = `
     >
       <a
         href="#"
-        onClick={[Function]}
       >
         <img
           alt="Place image"
@@ -337,6 +333,7 @@ exports[`component renders correctly 1`] = `
         </div>
         <button
           className="place-card__bookmark-button button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -380,7 +377,6 @@ exports[`component renders correctly 1`] = `
       >
         <a
           href="#"
-          onClick={[Function]}
         >
           Nice, cozy, warm big bed apartment
         </a>
