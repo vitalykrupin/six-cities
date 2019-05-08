@@ -1,6 +1,6 @@
 export default [
   {
-    name: `Beautiful, luxurious apartment at great location`,
+    title: `Beautiful, luxurious apartment at great location`,
     type: `Apartment`,
     image: `img/apartment-01.jpg`,
     price: {
@@ -12,7 +12,7 @@ export default [
     isPremium: true
   },
   {
-    name: `Wood and stone place`,
+    title: `Wood and stone place`,
     type: `Private room`,
     image: `img/room.jpg`,
     price: {
@@ -24,7 +24,7 @@ export default [
     isPremium: false
   },
   {
-    name: `Canal View Prinsengracht`,
+    title: `Canal View Prinsengracht`,
     type: `Apartment`,
     image: `img/apartment-02.jpg`,
     price: {
@@ -36,7 +36,7 @@ export default [
     isPremium: false
   },
   {
-    name: `Nice, cozy, warm big bed apartment`,
+    title: `Nice, cozy, warm big bed apartment`,
     type: `Apartment`,
     image: `img/apartment-03.jpg`,
     price: {
