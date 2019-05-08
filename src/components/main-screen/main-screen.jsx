@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlaceCard from '../place-card/place-card';
+import CardBoard from '../card-board/card-board';
 
-const MainScreen = ({places}) => {
+const MainScreen = ({offers}) => {
   return (
     <React.Fragment>
       <div style={{display: `none`}}>
@@ -99,12 +99,7 @@ const MainScreen = ({places}) => {
                 </select>
               </form>
 
-              <div className="cities__places-list places__list tabs__content">
-                {places.map((card, i) => <PlaceCard
-                  key={i}
-                  title={card.title}
-                />)}
-              </div>
+              <CardBoard offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" />
@@ -117,7 +112,7 @@ const MainScreen = ({places}) => {
 };
 
 MainScreen.propTypes = {
-  places: PropTypes.array
+  offers: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default MainScreen;
