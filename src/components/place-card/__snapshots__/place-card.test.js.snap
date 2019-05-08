@@ -9,12 +9,13 @@ exports[`Main screen correctly renders 1`] = `
   >
     <a
       href="#"
+      onClick={[Function]}
     >
       <img
         alt="Place image"
         className="place-card__image"
         height="200"
-        src="img/apartment-02.jpg"
+        src="img/apartment-01.jpg"
         width="260"
       />
     </a>
@@ -31,7 +32,8 @@ exports[`Main screen correctly renders 1`] = `
         <b
           className="place-card__price-value"
         >
-          €132
+          €
+          120
         </b>
         <span
           className="place-card__price-text"
@@ -68,7 +70,7 @@ exports[`Main screen correctly renders 1`] = `
         <span
           style={
             Object {
-              "width": "80%",
+              "width": "93%",
             }
           }
         />
@@ -86,7 +88,7 @@ exports[`Main screen correctly renders 1`] = `
         href="#"
         onClick={[Function]}
       >
-        Some title
+        Beautiful, luxurious apartment at great location
       </a>
     </h2>
     <p
