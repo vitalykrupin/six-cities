@@ -4,7 +4,7 @@ import MainScreen from './main-screen';
 
 it(`Main screen correctly renders`, () => {
   const tree = renderer
-    .create(<MainScreen places={[]}/>)
+    .create(<MainScreen offers={[]}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
