@@ -4,6 +4,6 @@ import App from './components/app/app';
 import mocks from '../src/mocks/offers';
 
 ReactDOM.render(
-    <App places={mocks} />,
+    <App offers={mocks} />,
     document.querySelector(`#root`)
 );
