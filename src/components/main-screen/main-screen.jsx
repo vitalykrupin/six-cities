@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CardBoard from '../card-board/card-board';
+import Map from '../map/map';
 
 const MainScreen = ({offers}) => {
   return (
@@ -102,7 +103,9 @@ const MainScreen = ({offers}) => {
               <CardBoard offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <section className="cities__map map">
+                <Map />
+              </section>
             </div>
           </div>
         </div>
