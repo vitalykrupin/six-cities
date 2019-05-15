@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MainScreen from './main-screen';
+import Map from './map';
 
 const mockData = [
   {
@@ -45,9 +45,9 @@ const mockData = [
   }
 ];
 
-it(`Main screen correctly renders`, () => {
+it(`App correctly renders`, () => {
   const tree = renderer
-    .create(<MainScreen offers={mockData}/>)
+    .create(<Map offers={mockData}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

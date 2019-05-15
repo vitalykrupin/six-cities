@@ -22,7 +22,16 @@ class CardBoard extends PureComponent {
 }
 
 CardBoard.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object)
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    type: PropTypes.string,
+    coords: PropTypes.arrayOf(PropTypes.number),
+    image: PropTypes.string,
+    price: PropTypes.string,
+    rate: PropTypes.number,
+    isBookmarked: PropTypes.bool,
+    isPremium: PropTypes.bool
+  })).isRequired
 };
 
 export default CardBoard;

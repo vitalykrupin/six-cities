@@ -44,7 +44,7 @@ exports[`component renders correctly 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button button"
+          className="place-card__bookmark-button button marked"
           onClick={[Function]}
           type="button"
         >
@@ -236,7 +236,7 @@ exports[`component renders correctly 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button button"
+          className="place-card__bookmark-button button marked"
           onClick={[Function]}
           type="button"
         >

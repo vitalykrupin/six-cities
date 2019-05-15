@@ -8,7 +8,7 @@ class Map extends PureComponent {
   }
 
   render() {
-    return <div id="map" style={{height: 800, marginTop: 25, marginBottom: 25}}/>
+    return <div id="map" style={{height: 800, marginTop: 25, marginBottom: 25}}/>;
   }
 
   componentDidMount() {
@@ -29,7 +29,7 @@ class Map extends PureComponent {
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-      attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(map);
 
@@ -43,7 +43,16 @@ class Map extends PureComponent {
 }
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object)
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    type: PropTypes.string,
+    coords: PropTypes.arrayOf(PropTypes.number),
+    image: PropTypes.string,
+    price: PropTypes.string,
+    rate: PropTypes.number,
+    isBookmarked: PropTypes.bool,
+    isPremium: PropTypes.bool
+  })).isRequired
 };
 
 export default Map;

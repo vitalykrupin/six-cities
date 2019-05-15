@@ -56,7 +56,7 @@ class PlaceCard extends PureComponent {
   }
 }
 
-PlaceCard.propTypes = {
+PlaceCard.propTypes = PropTypes.shape({
   title: PropTypes.string,
   type: PropTypes.string,
   image: PropTypes.string,
@@ -65,6 +65,6 @@ PlaceCard.propTypes = {
   isBookmarked: PropTypes.bool,
   isPremium: PropTypes.bool,
   onBtnClick: PropTypes.func
-};
+}).isRequired;
 
 export default PlaceCard;
