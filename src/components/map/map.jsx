@@ -12,6 +12,18 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
+    try {
+      this._createMap();
+    } catch (error) {
+      // smthng went wrong..
+    }
+  }
+
+  componentWillUnmount() {
+    this.map.remove();
+  }
+
+  _createMap() {
     const city = [52.38333, 4.9];
     const {offers} = this.props;
     const icon = leaflet.icon({
@@ -34,9 +46,8 @@ class Map extends PureComponent {
       .addTo(map);
 
     offers.map((offer) => {
-      const offerCoords = [offer.coords[0], offer.coords[1]];
       leaflet
-        .marker(offerCoords, {icon})
+        .marker(offer.coords, {icon})
         .addTo(map);
     });
   }

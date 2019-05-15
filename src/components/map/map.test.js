@@ -46,8 +46,10 @@ const mockData = [
 ];
 
 it(`App correctly renders`, () => {
+  Map.prototype.componentDidMount = () => {};
+
   const tree = renderer
-    .create(<Map offers={mockData}/>)
+    .create(<Map offers={mockData} />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
