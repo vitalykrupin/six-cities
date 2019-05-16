@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card';
 
-class CardBoard extends Component {
+class CardBoard extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -14,11 +14,7 @@ class CardBoard extends Component {
       <div className="cities__places-list places__list tabs__content">
         {offers.map((card, i) => <PlaceCard
           key={i}
-          title={card.title}
-          type={card.type}
-          price={card.price}
-          rate={card.rate}
-          image={card.image}
+          {...card}
         />)}
       </div>
     );
@@ -26,7 +22,16 @@ class CardBoard extends Component {
 }
 
 CardBoard.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object)
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    type: PropTypes.string,
+    coords: PropTypes.arrayOf(PropTypes.number),
+    image: PropTypes.string,
+    price: PropTypes.string,
+    rate: PropTypes.number,
+    isBookmarked: PropTypes.bool,
+    isPremium: PropTypes.bool
+  })).isRequired
 };
 
 export default CardBoard;

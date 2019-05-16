@@ -1,4 +1,8 @@
-export default [
+import React from 'react';
+import renderer from 'react-test-renderer';
+import Map from './map';
+
+const mockData = [
   {
     title: `Beautiful, luxurious apartment at great location`,
     type: `Apartment`,
@@ -38,5 +42,15 @@ export default [
     rate: 100,
     isBookmarked: false,
     isPremium: true
-  },
+  }
 ];
+
+it(`App correctly renders`, () => {
+  Map.prototype.componentDidMount = () => {};
+
+  const tree = renderer
+    .create(<Map offers={mockData} />)
+    .toJSON();
+
+  expect(tree).toMatchSnapshot();
+});

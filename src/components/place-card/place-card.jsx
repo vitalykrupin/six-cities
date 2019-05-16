@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-class PlaceCard extends Component {
+class PlaceCard extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,7 +56,7 @@ class PlaceCard extends Component {
   }
 }
 
-PlaceCard.propTypes = {
+PlaceCard.propTypes = PropTypes.shape({
   title: PropTypes.string,
   type: PropTypes.string,
   image: PropTypes.string,
@@ -65,6 +65,6 @@ PlaceCard.propTypes = {
   isBookmarked: PropTypes.bool,
   isPremium: PropTypes.bool,
   onBtnClick: PropTypes.func
-};
+}).isRequired;
 
 export default PlaceCard;

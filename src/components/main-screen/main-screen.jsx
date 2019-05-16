@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CardBoard from '../card-board/card-board';
+import Map from '../map/map';
 
 const MainScreen = ({offers}) => {
   return (
@@ -102,7 +103,9 @@ const MainScreen = ({offers}) => {
               <CardBoard offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <section className="cities__map map">
+                <Map offers={offers}/>
+              </section>
             </div>
           </div>
         </div>
@@ -112,7 +115,16 @@ const MainScreen = ({offers}) => {
 };
 
 MainScreen.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object)
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    type: PropTypes.string,
+    coords: PropTypes.arrayOf(PropTypes.number),
+    image: PropTypes.string,
+    price: PropTypes.string,
+    rate: PropTypes.number,
+    isBookmarked: PropTypes.bool,
+    isPremium: PropTypes.bool
+  })).isRequired
 };
 
 export default MainScreen;
