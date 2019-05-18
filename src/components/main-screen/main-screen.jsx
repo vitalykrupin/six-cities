@@ -92,8 +92,8 @@ const MainScreen = ({offers}) => {
                   </svg>
                 </span>
 
-                <select className="places__sorting-type" id="places-sorting">
-                  <option className="places__option" value="popular" selected="">Popular</option>
+                <select className="places__sorting-type" id="places-sorting" defaultValue={`popular`}>
+                  <option className="places__option" value="popular">Popular</option>
                   <option className="places__option" value="to-high">Price: low to high</option>
                   <option className="places__option" value="to-low">Price: high to low</option>
                   <option className="places__option" value="top-rated">Top rated first</option>
