@@ -231,11 +231,11 @@ Array [
             </span>
             <select
               className="places__sorting-type"
+              defaultValue="popular"
               id="places-sorting"
             >
               <option
                 className="places__option"
-                selected=""
                 value="popular"
               >
                 Popular
