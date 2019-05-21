@@ -16,7 +16,7 @@ const init = () => {
   ReactDOM.render(
       <Provider store={store}>
         <App
-          offers={offers}
+          places={offers}
         />
       </Provider>,
       document.querySelector(`#root`)

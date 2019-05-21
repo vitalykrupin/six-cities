@@ -4,17 +4,31 @@ import {connect} from "react-redux";
 import MainScreen from '../main-screen/main-screen';
 import {ActionCreator} from "../../reducer";
 
-const App = ({offers, onCityClick, city, cities}) => {
+const App = ({offers, places, onCityClick, city}) => {
+  const citiesList = Array.from(new Set(places.map((place) => place.city.name)));
+
   return <MainScreen
     offers={offers}
-    onCityClick={onCityClick}
+    onCityClick={(selectedCity) => onCityClick(selectedCity, places)}
     city={city}
-    cities={cities}
+    cities={citiesList}
   />;
 };
 
 App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape({
+    city: PropTypes.object,
+    title: PropTypes.string,
+    type: PropTypes.string,
+    coords: PropTypes.arrayOf(PropTypes.number),
+    image: PropTypes.string,
+    price: PropTypes.string,
+    rate: PropTypes.number,
+    isBookmarked: PropTypes.bool,
+    isPremium: PropTypes.bool
+  })).isRequired,
+  places: PropTypes.arrayOf(PropTypes.shape({
+    city: PropTypes.object,
     title: PropTypes.string,
     type: PropTypes.string,
     coords: PropTypes.arrayOf(PropTypes.number),
@@ -31,13 +45,13 @@ App.propTypes = {
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   city: state.city,
-  offers: state.offers.filter((offer) => offer.city.name === state.city),
-  cities: Array.from(new Set(state.offers.map((offer) => offer.city.name)))
+  offers: state.offers,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCityClick: (selectedCity) => {
+  onCityClick: (selectedCity, places) => {
     dispatch(ActionCreator.changeCity(selectedCity));
+    dispatch(ActionCreator.fetchOffers(selectedCity, places));
   }
 });
 

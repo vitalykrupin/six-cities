@@ -1,6 +1,9 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
+// import {connect} from 'react-redux';
+// import {ActionCreator} from "../../reducer";
+// import mapStateToProps from "react-redux/es/connect/mapStateToProps";
 
 class Map extends PureComponent {
   constructor(props) {
@@ -68,4 +71,20 @@ Map.propTypes = {
   })).isRequired
 };
 
+// const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+//   offers: state.offers.filter((offer) => offer.city.name === state.city),
+//   test: 1
+// });
+
+// const mapDispatchToProps = (dispatch) => ({
+//   onCityClick: (selectedCity, offers) => {
+//     dispatch(ActionCreator.fetchOffers(selectedCity, offers));
+//   }
+// });
+
 export default Map;
+
+// export default connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(Map);
