@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CardBoard from '../card-board/card-board';
 import Map from '../map/map';
+import CitiesList from '../cities-list/cities-list';
 
-const MainScreen = ({offers}) => {
+const MainScreen = ({offers, cities, city, onCityClick}) => {
   return (
     <>
       <div style={{display: `none`}}>
@@ -37,43 +38,11 @@ const MainScreen = ({offers}) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="cities tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <CitiesList
+              cities={cities}
+              city={city}
+              onCityClick={onCityClick}
+            />
           </section>
         </div>
 
@@ -124,7 +93,10 @@ MainScreen.propTypes = {
     rate: PropTypes.number,
     isBookmarked: PropTypes.bool,
     isPremium: PropTypes.bool
-  })).isRequired
+  })).isRequired,
+  cities: PropTypes.array,
+  city: PropTypes.string,
+  onCityClick: PropTypes.func
 };
 
 export default MainScreen;

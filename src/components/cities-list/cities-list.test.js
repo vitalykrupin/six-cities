@@ -3,10 +3,10 @@ import renderer from 'react-test-renderer';
 import CitiesList from './cities-list';
 
 const citiesMock = [
-  Paris,
-  Brussels,
-  Amsterdam,
-  Cologne
+  `Paris`,
+  `Brussels`,
+  `Amsterdam`,
+  `Cologne`
 ];
 
 it(`Cities List correctly renders`, () => {
@@ -16,6 +16,6 @@ it(`Cities List correctly renders`, () => {
       city={`Paris`}
       onCityClick={jest.fn()}
     />)
-    .toJSON()
+    .toJSON();
   expect(tree).toMatchSnapshot();
 });

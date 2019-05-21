@@ -45,6 +45,8 @@ const mockData = [
   }
 ];
 
+// TODO: fix this test, add new props
+
 it(`Main screen correctly renders`, () => {
   const tree = renderer
     .create(<MainScreen offers={mockData}/>)
