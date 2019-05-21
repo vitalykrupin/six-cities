@@ -26,7 +26,7 @@ App.propTypes = {
   })).isRequired,
   onCityClick: PropTypes.func,
   city: PropTypes.string,
-  cities: PropTypes.array
+  cities: PropTypes.array,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {

@@ -1,6 +1,17 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import App from './app';
+import {createStore} from 'redux';
+import {initialState, reducer} from '../../reducer';
+import {Provider} from 'react-redux';
+
+const createMockStore = (state = initialState) => createStore(reducer, state);
+
+export const MockProvider = ({state = initialState, children} = {}) => (
+  <Provider store={createMockStore(state)}>
+    {children}
+  </Provider>
+);
 
 const mockData = [
   {
@@ -47,7 +58,11 @@ const mockData = [
 
 it(`App correctly renders`, () => {
   const tree = renderer
-    .create(<App offers={mockData}/>)
+    .create(
+        <MockProvider>
+          <App offers={mockData}/>)
+        </MockProvider>
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -5,6 +5,7 @@ import leaflet from 'leaflet';
 class Map extends PureComponent {
   constructor(props) {
     super(props);
+    this.map = null;
   }
 
   render() {
@@ -14,8 +15,8 @@ class Map extends PureComponent {
   componentDidMount() {
     try {
       this._createMap();
-    } catch (error) {
-      // smthng went wrong..
+    } catch (err) {
+      // smthng went wrong
     }
   }
 
@@ -55,6 +56,7 @@ class Map extends PureComponent {
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape({
+    city: PropTypes.object,
     title: PropTypes.string,
     type: PropTypes.string,
     coords: PropTypes.arrayOf(PropTypes.number),

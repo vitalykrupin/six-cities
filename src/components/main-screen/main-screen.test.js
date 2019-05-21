@@ -45,11 +45,21 @@ const mockData = [
   }
 ];
 
-// TODO: fix this test, add new props
+const citiesMock = [
+  `Paris`,
+  `Brussels`,
+  `Amsterdam`,
+  `Cologne`
+];
 
 it(`Main screen correctly renders`, () => {
   const tree = renderer
-    .create(<MainScreen offers={mockData}/>)
+    .create(<MainScreen
+      offers={mockData}
+      onCityClick={jest.fn()}
+      city={`Paris`}
+      cities={citiesMock}
+    />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

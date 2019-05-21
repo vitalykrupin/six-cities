@@ -50,7 +50,7 @@ const MainScreen = ({offers, cities, city, onCityClick}) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{`${offers.length} ${offers.length === 1 ? `place` : `places`} to stay in ${city}`}</b>
 
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -73,7 +73,9 @@ const MainScreen = ({offers, cities, city, onCityClick}) => {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers}/>
+                <Map
+                  offers={offers}
+                />
               </section>
             </div>
           </div>
@@ -96,7 +98,7 @@ MainScreen.propTypes = {
   })).isRequired,
   cities: PropTypes.array,
   city: PropTypes.string,
-  onCityClick: PropTypes.func
+  onCityClick: PropTypes.func,
 };
 
 export default MainScreen;
