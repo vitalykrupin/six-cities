@@ -5,10 +5,6 @@ import MainScreen from '../main-screen/main-screen';
 import {ActionCreator} from "../../reducer";
 
 const App = ({offers, onCityClick, city, cities}) => {
-  // console.log(city);
-  // const cities = Array.from(new Set(offers.map((offer) => offer.city.name)));
-  console.log(offers);
-
   return <MainScreen
     offers={offers}
     onCityClick={onCityClick}
@@ -35,14 +31,13 @@ App.propTypes = {
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   city: state.city,
-  // offers: state.offers.filter((offer) => offer.city.name === state.city),
+  offers: state.offers.filter((offer) => offer.city.name === state.city),
   cities: Array.from(new Set(state.offers.map((offer) => offer.city.name)))
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCityClick: (selectedCity, offers) => {
+  onCityClick: (selectedCity) => {
     dispatch(ActionCreator.changeCity(selectedCity));
-    dispatch(ActionCreator.fetchOffers(selectedCity, offers));
   }
 });
 
