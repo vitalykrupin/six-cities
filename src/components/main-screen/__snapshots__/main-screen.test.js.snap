@@ -115,8 +115,8 @@ Array [
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
-              href="#"
+              className="locations__item-link tabs__item tabs__item--active"
+              onClick={[Function]}
             >
               <span>
                 Paris
@@ -128,19 +128,7 @@ Array [
           >
             <a
               className="locations__item-link tabs__item"
-              href="#"
-            >
-              <span>
-                Cologne
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
-              className="locations__item-link tabs__item"
-              href="#"
+              onClick={[Function]}
             >
               <span>
                 Brussels
@@ -151,7 +139,8 @@ Array [
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item tabs__item--active"
+              className="locations__item-link tabs__item"
+              onClick={[Function]}
             >
               <span>
                 Amsterdam
@@ -163,22 +152,10 @@ Array [
           >
             <a
               className="locations__item-link tabs__item"
-              href="#"
+              onClick={[Function]}
             >
               <span>
-                Hamburg
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
-              className="locations__item-link tabs__item"
-              href="#"
-            >
-              <span>
-                Dusseldorf
+                Cologne
               </span>
             </a>
           </li>
@@ -202,7 +179,7 @@ Array [
           <b
             className="places__found"
           >
-            312 places to stay in Amsterdam
+            4 places to stay in Paris
           </b>
           <form
             action="#"
@@ -231,11 +208,11 @@ Array [
             </span>
             <select
               className="places__sorting-type"
+              defaultValue="popular"
               id="places-sorting"
             >
               <option
                 className="places__option"
-                selected=""
                 value="popular"
               >
                 Popular

@@ -7,7 +7,7 @@
     "eslint": "eslint src/**/*.js src/**/*.jsx",
     "test": "npm run eslint && jest",
     "build": "webpack --mode development",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --open"
   },
   "devDependencies": {
     "@babel/core": "7.4.4",
@@ -34,6 +34,8 @@
     "leaflet": "1.5.1",
     "prop-types": "15.7.2",
     "react": "16.8.6",
-    "react-dom": "16.8.6"
+    "react-dom": "16.8.6",
+    "react-redux": "7.0.3",
+    "redux": "4.0.1"
   }
 }

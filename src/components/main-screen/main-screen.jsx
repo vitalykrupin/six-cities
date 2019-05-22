@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CardBoard from '../card-board/card-board';
 import Map from '../map/map';
+import CitiesList from '../cities-list/cities-list';
 
-const MainScreen = ({offers}) => {
+const MainScreen = ({offers, cities, city, onCityClick}) => {
   return (
     <>
       <div style={{display: `none`}}>
@@ -37,43 +38,11 @@ const MainScreen = ({offers}) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="cities tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <CitiesList
+              cities={cities}
+              city={city}
+              onCityClick={onCityClick}
+            />
           </section>
         </div>
 
@@ -81,7 +50,7 @@ const MainScreen = ({offers}) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{`${offers.length} ${offers.length === 1 ? `place` : `places`} to stay in ${city}`}</b>
 
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -92,8 +61,8 @@ const MainScreen = ({offers}) => {
                   </svg>
                 </span>
 
-                <select className="places__sorting-type" id="places-sorting">
-                  <option className="places__option" value="popular" selected="">Popular</option>
+                <select className="places__sorting-type" id="places-sorting" defaultValue={`popular`}>
+                  <option className="places__option" value="popular">Popular</option>
                   <option className="places__option" value="to-high">Price: low to high</option>
                   <option className="places__option" value="to-low">Price: high to low</option>
                   <option className="places__option" value="top-rated">Top rated first</option>
@@ -104,7 +73,9 @@ const MainScreen = ({offers}) => {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers}/>
+                <Map
+                  offers={offers}
+                />
               </section>
             </div>
           </div>
@@ -124,7 +95,10 @@ MainScreen.propTypes = {
     rate: PropTypes.number,
     isBookmarked: PropTypes.bool,
     isPremium: PropTypes.bool
-  })).isRequired
+  })).isRequired,
+  cities: PropTypes.array,
+  city: PropTypes.string,
+  onCityClick: PropTypes.func,
 };
 
 export default MainScreen;
