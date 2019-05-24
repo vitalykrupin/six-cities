@@ -52,6 +52,14 @@ const citiesMock = [
   `Cologne`
 ];
 
+const fixContainerLeafletTest = () => {
+  const div = global.document.createElement(`div`);
+  div.setAttribute(`id`, `map`);
+  global.document.body.appendChild(div);
+};
+
+fixContainerLeafletTest();
+
 it(`Main screen correctly renders`, () => {
   const tree = renderer
     .create(<MainScreen
