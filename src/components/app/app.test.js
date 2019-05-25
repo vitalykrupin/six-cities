@@ -86,6 +86,14 @@ const mockData = [
   }
 ];
 
+const fixContainerLeafletTest = () => {
+  const div = global.document.createElement(`div`);
+  div.setAttribute(`id`, `map`);
+  global.document.body.appendChild(div);
+};
+
+fixContainerLeafletTest();
+
 it(`App correctly renders`, () => {
   const tree = renderer
     .create(

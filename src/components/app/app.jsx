@@ -49,9 +49,9 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCityClick: (selectedCity, places) => {
+  onCityClick: (selectedCity, selectedOffers) => {
     dispatch(ActionCreator.changeCity(selectedCity));
-    dispatch(ActionCreator.fetchOffers(selectedCity, places));
+    dispatch(ActionCreator.fetchOffers(selectedCity, selectedOffers));
   }
 });
 
