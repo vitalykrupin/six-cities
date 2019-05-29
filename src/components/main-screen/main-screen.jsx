@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import CardBoard from '../card-board/card-board';
 import Map from '../map/map';
 import CitiesList from '../cities-list/cities-list';
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 
-const MainScreen = ({offers, cities, city, onCityClick}) => {
+const MainScreen = ({offers, cities, city, onCityClick, onMouseEnter, onMouseLeave, activeCard}) => {
   // const citiesList = Array.from(new Set(selectedOffers.map((place) => place.city.name)));
 
   return (
@@ -71,12 +72,17 @@ const MainScreen = ({offers, cities, city, onCityClick}) => {
                 </select>
               </form>
 
-              <CardBoard offers={offers}/>
+              <CardBoard
+                offers={offers}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
                   offers={offers}
+                  activeCard={activeCard}
                 />
               </section>
             </div>
@@ -101,6 +107,9 @@ MainScreen.propTypes = {
   cities: PropTypes.array,
   city: PropTypes.string,
   onCityClick: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  activeCard: PropTypes.object,
 };
 
-export default MainScreen;
+export default withActiveItem(MainScreen);
