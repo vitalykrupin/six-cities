@@ -13,6 +13,7 @@
     "@babel/core": "7.4.4",
     "@babel/preset-env": "7.4.4",
     "@babel/preset-react": "7.0.0",
+    "axios-mock-adapter": "1.16.0",
     "babel-jest": "24.8.0",
     "babel-loader": "8.0.5",
     "classnames": "2.2.6",
@@ -37,6 +38,7 @@
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-redux": "7.0.3",
+    "recompose": "0.30.0",
     "redux": "4.0.1",
     "redux-thunk": "2.3.0"
   }
