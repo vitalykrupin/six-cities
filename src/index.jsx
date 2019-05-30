@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
-import compose from 'recompose';
+import {compose} from 'recompose';
 
 import App from './components/app/app';
 import {createAPI} from './api';
@@ -15,8 +15,8 @@ const init = () => {
   const store = createStore(
       reducer,
       compose(
-        applyMiddleware(thunk.withExtraArgument(api)),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+          applyMiddleware(thunk.withExtraArgument(api)),
+          window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
       )
   );
 
