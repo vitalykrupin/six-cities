@@ -20,20 +20,20 @@ const withActiveItem = ((Component) => {
           {...this.props}
           onMouseEnter={this._onCardMouseEnterHandler}
           onMouseLeave={this._onCardMouseLeaveHandler}
-          activeCard={this.state.activeCard}
+          activeItem={this.state.activeItem}
         />
       );
     }
 
     _onCardMouseEnterHandler(item) {
       this.setState({
-        activeCard: item,
+        activeItem: item,
       });
     }
 
     _onCardMouseLeaveHandler() {
       this.setState({
-        activeCard: {},
+        activeItem: {},
       });
     }
   }
