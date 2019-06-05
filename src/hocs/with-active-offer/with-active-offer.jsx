@@ -15,9 +15,9 @@ const withActiveOffer = (Component) => {
       return <Component
         {...this.props}
         activeOffer = {activeOffer}
-        handleClick = {(item) => {
+        onClick = {(offer) => {
           this.setState({
-            activeOffer: item
+            activeOffer: offer
           });
         }}
         onClearOffer = {() => {
