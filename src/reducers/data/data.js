@@ -1,3 +1,5 @@
+import {adapter} from './adapter';
+
 const initialState = {
   fetchedOffers: []
 };
@@ -6,7 +8,7 @@ const actionsType = {
   FETCH_OFFERS: `FETCH_OFFERS`
 };
 
-const ActionCreators = {
+const ActionCreator = {
   fetchOffers: (offers) => ({
     type: `FETCH_OFFERS`,
     payload: offers
@@ -17,7 +19,7 @@ const Operations = {
   fetchOffers: () => (dispatch, getState, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        dispatch(ActionCreators.fetchOffers(response.data));
+        dispatch(ActionCreator.fetchOffers(adapter(response.data)));
       });
   }
 };
@@ -32,4 +34,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionCreators, Operations, actionsType};
+export {reducer, ActionCreator, Operations, actionsType};

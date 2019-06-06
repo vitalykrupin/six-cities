@@ -1,30 +1,36 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 class PlaceCard extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      isBookmarked: this.props.isBookmarked
-    };
-    this._handleClick = this._handleClick.bind(this);
-  }
-
-  _handleClick() {
-    this.setState({
-      isBookmarked: !this.state.isBookmarked
-    });
   }
 
   render() {
-    const {title, type, image, price, rate, onBtnClick} = this.props;
+    const {
+      onBtnClick,
+      // city,
+      // description,
+      // goods,
+      // host,
+      // id,
+      // images,
+      // is_premium,
+      // is_favorite,
+      // location,
+      // max_adults,
+      type,
+      title,
+      rating,
+      price,
+      // preview_image
+    } = this.props;
 
     return (
       <article className="cities__place-card place-card">
         <div className="cities__image-wrapper place-card__image-wrapper">
           <a href="#" onClick={onBtnClick}>
-            <img className="place-card__image" src={image} width="260" height="200" alt="Place image" />
+            <img className="place-card__image" width="260" height="200" alt="Place image" />
           </a>
         </div>
         <div className="place-card__info">
@@ -33,7 +39,7 @@ class PlaceCard extends PureComponent {
               <b className="place-card__price-value">&euro;{price}</b>
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
-            <button className={classNames(`place-card__bookmark-button button`, this.state.isBookmarked && `marked`)} type="button" onClick={this._handleClick}>
+            <button className="place-card__bookmark-button button" type="button">
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark" />
               </svg>
@@ -42,7 +48,7 @@ class PlaceCard extends PureComponent {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{width: `${rate}%`}} />
+              <span style={{width: `${rating}%`}} />
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
@@ -56,15 +62,23 @@ class PlaceCard extends PureComponent {
   }
 }
 
-PlaceCard.propTypes = PropTypes.shape({
-  title: PropTypes.string,
+PlaceCard.propTypes = {
+  onBtnClick: PropTypes.func,
+  city: PropTypes.object,
+  description: PropTypes.string,
+  goods: PropTypes.array,
+  host: PropTypes.object,
+  id: PropTypes.number,
+  images: PropTypes.array,
+  is_premium: PropTypes.bool,
+  is_favorite: PropTypes.bool,
+  location: PropTypes.object,
+  max_adults: PropTypes.number,
   type: PropTypes.string,
-  image: PropTypes.string,
-  price: PropTypes.string,
-  rate: PropTypes.number,
-  isBookmarked: PropTypes.bool,
-  isPremium: PropTypes.bool,
-  onBtnClick: PropTypes.func
-}).isRequired;
+  title: PropTypes.string,
+  rating: PropTypes.number,
+  price: PropTypes.number,
+  preview_image: PropTypes.string
+};
 
 export default PlaceCard;

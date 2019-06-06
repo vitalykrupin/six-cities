@@ -1,18 +1,17 @@
-import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import withActiveCity from './with-active-city';
+import React from "react";
+import Enzyme, {shallow} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import withActiveElement from "./with-active-element.jsx";
 
 Enzyme.configure({adapter: new Adapter()});
 
-const Mock = () => <div />;
-const MockWrapped = withActiveCity(Mock);
+const MockComponent = () => <div />;
+const MockComponentWrapper = withActiveElement(MockComponent);
 
-it(`Should change hover item`, () => {
-  const wrapper = shallow(<MockWrapped
-    setHoverItem={jest.fn()}
-  />);
+it(`Should change active element when call handleClick`, () => {
+  const wrapper = shallow(<MockComponentWrapper />);
 
-  wrapper.props().setHoverItem(`Cologne`);
-  expect(wrapper.props().active).toEqual(`Cologne`);
+  expect(wrapper.props().activeElement).toEqual(``);
+  wrapper.props().handleClick(`Small room`);
+  expect(wrapper.props().activeElement).toEqual(`Small room`);
 });

@@ -1,37 +1,29 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React, {PureComponent} from "react";
 
-const withActiveCity = ((Component) => {
-  class WithHoverItem extends PureComponent {
+const withActiveElement = (Component) => {
+  class WithActiveElement extends PureComponent {
     constructor(props) {
       super(props);
-      const {active} = this.props;
 
       this.state = {
-        hoverItem: active || null,
+        activeElement: ``
       };
     }
 
     render() {
-      return (
-        <Component
-          {...this.props}
-          active={this.state.hoverItem}
-          setHoverItem={(active) => {
-            this.setState({
-              hoverItem: active,
-            });
-          }}
-        />
-      );
+      const {activeElement} = this.state;
+      return <Component
+        {...this.props}
+        activeElement = {activeElement}
+        handleClick = {(item) => {
+          this.setState({
+            activeElement: item
+          });
+        }}
+      />;
     }
   }
-
-  WithHoverItem.propTypes = {
-    active: PropTypes.string,
-  };
-
   return WithActiveElement;
-});
+};
 
 export default withActiveElement;

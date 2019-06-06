@@ -1,6 +1,6 @@
 const NameSpaces = {
   DATA: `DATA`,
-  GAME: `GAME`,
+  CITY: `CITY`,
   USER: `USER`
 };
 

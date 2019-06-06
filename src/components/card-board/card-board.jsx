@@ -8,12 +8,12 @@ class CardBoard extends PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
-
+    const {places} = this.props;
+    console.log(places);
     return (
       <div className="cities__places-list places__list tabs__content">
-        {offers.map((card, i) => <PlaceCard
-          key={i}
+        {places.map((card, i) => <PlaceCard
+          key={`place-${i}`}
           {...card}
         />)}
       </div>
@@ -22,16 +22,7 @@ class CardBoard extends PureComponent {
 }
 
 CardBoard.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
-    type: PropTypes.string,
-    coords: PropTypes.arrayOf(PropTypes.number),
-    image: PropTypes.string,
-    price: PropTypes.string,
-    rate: PropTypes.number,
-    isBookmarked: PropTypes.bool,
-    isPremium: PropTypes.bool
-  })).isRequired
+  places: PropTypes.array
 };
 
 export default CardBoard;

@@ -6,7 +6,7 @@ const actionsType = {
   REQUIRED_AUTH: `REQUIRED_AUTH`
 };
 
-const ActionCreators = {
+const ActionCreator = {
   requireAuth: (status) => {
     return {
       type: actionsType.REQUIRED_AUTH,
@@ -24,4 +24,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionCreators, actionsType};
+export {reducer, ActionCreator, actionsType};
