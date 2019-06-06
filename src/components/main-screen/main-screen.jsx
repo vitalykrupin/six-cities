@@ -3,14 +3,32 @@ import PropTypes from 'prop-types';
 import CardBoard from '../card-board/card-board';
 import Map from '../map/map';
 import CitiesList from '../cities-list/cities-list';
+import withActiveOffer from '../../hocs/with-active-offer/with-active-offer';
 
-const MainScreen = ({offers, cities, city, onCityClick}) => {
-  // const citiesList = Array.from(new Set(selectedOffers.map((place) => place.city.name)));
+const MainScreen = (props) => {
+  const {
+    places,
+    cities,
+    activeCity,
+    getActiveCity
+  } = props;
+
+  const CardBoardWrapper = withActiveOffer(CardBoard);
 
   return (
     <React.Fragment>
       <div style={{display: `none`}}>
-        <svg xmlns="http://www.w3.org/2000/svg"><symbol id="icon-arrow-select" viewBox="0 0 7 4"><path fillRule="evenodd" clipRule="evenodd" d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z" /></symbol><symbol id="icon-bookmark" viewBox="0 0 17 18"><path d="M3.993 2.185l.017-.092V2c0-.554.449-1 .99-1h10c.522 0 .957.41.997.923l-2.736 14.59-4.814-2.407-.39-.195-.408.153L1.31 16.44 3.993 2.185z" /></symbol><symbol id="icon-star" viewBox="0 0 13 12"><path fillRule="evenodd" clipRule="evenodd" d="M6.5 9.644L10.517 12 9.451 7.56 13 4.573l-4.674-.386L6.5 0 4.673 4.187 0 4.573 3.549 7.56 2.483 12 6.5 9.644z" /></symbol></svg>
+        <svg xmlns="http://www.w3.org/2000/svg">
+          <symbol id="icon-arrow-select" viewBox="0 0 7 4">
+            <path fillRule="evenodd" clipRule="evenodd" d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z" />
+          </symbol>
+          <symbol id="icon-bookmark" viewBox="0 0 17 18">
+            <path d="M3.993 2.185l.017-.092V2c0-.554.449-1 .99-1h10c.522 0 .957.41.997.923l-2.736 14.59-4.814-2.407-.39-.195-.408.153L1.31 16.44 3.993 2.185z" />
+          </symbol>
+          <symbol id="icon-star" viewBox="0 0 13 12">
+            <path fillRule="evenodd" clipRule="evenodd" d="M6.5 9.644L10.517 12 9.451 7.56 13 4.573l-4.674-.386L6.5 0 4.673 4.187 0 4.573 3.549 7.56 2.483 12 6.5 9.644z" />
+          </symbol>
+        </svg>
       </div>
 
       <header className="header">
@@ -40,11 +58,13 @@ const MainScreen = ({offers, cities, city, onCityClick}) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="cities tabs">
           <section className="locations container">
+
             <CitiesList
               cities={cities}
-              city={city}
-              onCityClick={onCityClick}
+              activeCity={activeCity}
+              // onCityClick={onCityClick}
             />
+
           </section>
         </div>
 
@@ -52,7 +72,7 @@ const MainScreen = ({offers, cities, city, onCityClick}) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{`${offers.length} ${offers.length === 1 ? `place` : `places`} to stay in ${city}`}</b>
+              <b className="places__found">{`${places.length} ${places.length === 1 ? `place` : `places`} to stay in ${activeCity}`}</b>
 
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -71,13 +91,22 @@ const MainScreen = ({offers, cities, city, onCityClick}) => {
                 </select>
               </form>
 
-              <CardBoard offers={offers}/>
+              <CardBoardWrapper
+                places={places}
+                getActiveCity = {getActiveCity}
+                activeCity = {activeCity}
+                cities = {cities}
+              />
+
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
+
                 <Map
-                  offers={offers}
+                  places={places}
+                  // activeCard={activeCard}
                 />
+
               </section>
             </div>
           </div>
@@ -88,19 +117,10 @@ const MainScreen = ({offers, cities, city, onCityClick}) => {
 };
 
 MainScreen.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
-    type: PropTypes.string,
-    coords: PropTypes.arrayOf(PropTypes.number),
-    image: PropTypes.string,
-    price: PropTypes.string,
-    rate: PropTypes.number,
-    isBookmarked: PropTypes.bool,
-    isPremium: PropTypes.bool
-  })).isRequired,
+  places: PropTypes.array,
   cities: PropTypes.array,
-  city: PropTypes.string,
-  onCityClick: PropTypes.func,
+  activeCity: PropTypes.object,
+  getActiveCity: PropTypes.func
 };
 
-export default MainScreen;
+export default withActiveOffer(MainScreen);

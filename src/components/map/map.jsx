@@ -32,7 +32,7 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {offers} = this.props;
+    const {places} = this.props;
 
     this.map = this.leaflet.map(`map`, {
       center: SETTINGS.city,
@@ -44,32 +44,22 @@ class Map extends PureComponent {
     }, 100);
 
     this.markers = this.leaflet.layerGroup().addTo(this.map);
-    this.addMarkers(offers, this.markers);
+    this.addMarkers(places, this.markers);
   }
 
   componentDidUpdate() {
-    const {offers} = this.props;
+    const {places} = this.props;
 
     if (this.map) {
       this.map.setView(SETTINGS.city, SETTINGS.zoom);
       this.markers.clearLayers();
-      this.addMarkers(offers, this.markers);
+      this.addMarkers(places, this.markers);
     }
   }
 }
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    city: PropTypes.object,
-    title: PropTypes.string,
-    type: PropTypes.string,
-    coords: PropTypes.arrayOf(PropTypes.number),
-    image: PropTypes.string,
-    price: PropTypes.string,
-    rate: PropTypes.number,
-    isBookmarked: PropTypes.bool,
-    isPremium: PropTypes.bool
-  })).isRequired,
+  places: PropTypes.array
 };
 
 export default Map;
