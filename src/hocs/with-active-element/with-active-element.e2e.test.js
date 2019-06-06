@@ -1,12 +1,12 @@
 import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import withHoverItem from './with-hover-item';
+import withActiveCity from './with-active-city';
 
 Enzyme.configure({adapter: new Adapter()});
 
 const Mock = () => <div />;
-const MockWrapped = withHoverItem(Mock);
+const MockWrapped = withActiveCity(Mock);
 
 it(`Should change hover item`, () => {
   const wrapper = shallow(<MockWrapped

@@ -1,8 +1,9 @@
 const initialState = {
-  activeCity: {
-    "name": `Brussels`,
-    "location": {"latitude": 50.846557, "longitude": 4.351697, "zoom": 13}
-  },
+  activeCity:
+    {
+      "name": `Brussels`,
+      "location": {"latitude": 50.846557, "longitude": 4.351697, "zoom": 13}
+    },
   cities: []
 };
 
@@ -11,11 +12,13 @@ const actionsType = {
   GET_ACTIVE_CITY: `GET_ACTIVE_CITY`
 };
 
-const ActionCreators = {
-  getActiveCity: (city) => ({
-    type: `GET_ACTIVE_CITY`,
-    payload: city,
-  })
+const ActionCreator = {
+  getActiveCity: (city) => {
+    return {
+      type: `GET_ACTIVE_CITY`,
+      payload: city,
+    };
+  }
 };
 
 
@@ -29,4 +32,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionCreators, actionsType};
+export {reducer, ActionCreator, actionsType};

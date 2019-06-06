@@ -1,6 +1,6 @@
-import NameSpace from '../name-spaces.js';
+import NameSpace from "../name-spaces.js";
 
-const NAME_SPACE = NameSpace.GAME;
+const NAME_SPACE = NameSpace.CITY;
 
 
 export const getCity = (state) => {

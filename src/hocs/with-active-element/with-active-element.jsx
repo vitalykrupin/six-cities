@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-const withHoverItem = ((Component) => {
+const withActiveCity = ((Component) => {
   class WithHoverItem extends PureComponent {
     constructor(props) {
       super(props);
@@ -31,7 +31,7 @@ const withHoverItem = ((Component) => {
     active: PropTypes.string,
   };
 
-  return WithHoverItem;
+  return WithActiveElement;
 });
 
-export default withHoverItem;
+export default withActiveElement;
