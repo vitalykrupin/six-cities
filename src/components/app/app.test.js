@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import App from './app';
 import {createStore} from 'redux';
-import {initialState, reducer} from '../../reducers';
+import {initialState, reducer} from '../../reducer';
 import {Provider} from 'react-redux';
 
 const createMockStore = (state = initialState) => createStore(reducer, state);
