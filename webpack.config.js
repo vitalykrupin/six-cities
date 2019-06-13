@@ -1,8 +1,7 @@
 const path = require(`path`);
-const webpack = require(`webpack`);
 
 module.exports = {
-  entry: `./src/index.jsx`,
+  entry: `./src/index.tsx`,
   output: {
     filename: `bundle.js`,
     // eslint-disable-next-line no-undef
@@ -13,7 +12,6 @@ module.exports = {
     contentBase: path.join(__dirname, `public`),
     compress: false,
     port: 8080,
-    historyApiFallback: true
   },
   module: {
     rules: [
@@ -23,11 +21,15 @@ module.exports = {
         use: {
           loader: `babel-loader`,
         },
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        loader: `ts-loader`,
       }
     ],
   },
   resolve: {
-    extensions: [`*`, `.js`, `.jsx`]
+    extensions: [`.ts`, `.tsx`, `.js`, `.jsx`, `json`]
   },
   devtool: `source-map`,
 };
