@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import renderer from 'react-test-renderer';
-import CardBoard from './card-board';
+import Map from './map';
 
 const mockData = [
   {
@@ -45,9 +45,19 @@ const mockData = [
   }
 ];
 
-it(`component renders correctly`, () => {
+const fixContainerLeafletTest = () => {
+  const div = global.document.createElement(`div`);
+  div.setAttribute(`id`, `map`);
+  global.document.body.appendChild(div);
+};
+
+fixContainerLeafletTest();
+
+it(`App correctly renders`, () => {
+  Map.prototype.componentDidMount = () => {};
+
   const tree = renderer
-    .create(<CardBoard offers={mockData}/>)
+    .create(<Map offers={mockData} />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
