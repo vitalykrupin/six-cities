@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import renderer from 'react-test-renderer';
-import CardBoard from './card-board';
+import MainScreen from './main-screen';
 
 const mockData = [
   {
@@ -45,9 +45,29 @@ const mockData = [
   }
 ];
 
-it(`component renders correctly`, () => {
+const citiesMock = [
+  `Paris`,
+  `Brussels`,
+  `Amsterdam`,
+  `Cologne`
+];
+
+const fixContainerLeafletTest = () => {
+  const div = global.document.createElement(`div`);
+  div.setAttribute(`id`, `map`);
+  global.document.body.appendChild(div);
+};
+
+fixContainerLeafletTest();
+
+it(`Main screen correctly renders`, () => {
   const tree = renderer
-    .create(<CardBoard offers={mockData}/>)
+    .create(<MainScreen
+      offers={mockData}
+      onCityClick={jest.fn()}
+      city={`Paris`}
+      cities={citiesMock}
+    />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
