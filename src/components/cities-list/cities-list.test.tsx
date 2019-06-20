@@ -11,11 +11,12 @@ const citiesMock = [
 
 it(`Cities List correctly renders`, () => {
   const tree = renderer
-    .create(<CitiesList
-      cities={citiesMock}
-      city={`Paris`}
-      onCityClick={jest.fn()}
-    />)
+    .create(
+      <CitiesList
+        cities={citiesMock}
+        city={`Paris`}
+        onCityClick={jest.fn()}
+      />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
