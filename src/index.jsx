@@ -4,11 +4,15 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {compose} from 'recompose';
+import {BrowserRouter} from 'react-router-dom';
+import {Operation, ActionCreator} from './reducers/data/data';
+import {Operation as UserOperation, ActionCreator as UserActions} from './reducers/user/user';
+import {getRandomOffer} from './reducers/data/selectors';
 import App from './components/app/app';
-import {offers} from './mocks/offers';
-import {reducer} from "./reducer";
-import api from './api';
+import reducer from './reducers/index';
+import {createAPI} from './api';
 
+const api = createAPI(() => store.dispatch(UserActions.requireAuthorization(false)));
 
 const store = createStore(
     reducer,
@@ -18,11 +22,23 @@ const store = createStore(
     )
 );
 
+store.dispatch(UserOperation.checkAuthorization());
+
+store.dispatch(Operation.loadOffers())
+  .then(() => {
+    const currentState = store.getState();
+    const offer = getRandomOffer(currentState);
+
+    if (offer) {
+      store.dispatch(ActionCreator.changeCity(offer.city));
+    }
+  });
+
 ReactDOM.render(
     <Provider store={store}>
-      <App
-        places={offers}
-      />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>,
     document.querySelector(`#root`)
 );
