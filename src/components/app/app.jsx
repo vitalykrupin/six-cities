@@ -1,63 +1,80 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from "react-redux";
-import MainScreen from '../main-screen/main-screen';
-import {ActionCreator} from "../../reducer";
+import {connect} from 'react-redux';
+import {Switch, Route, withRouter} from 'react-router-dom';
+import {getAuthorizationStatus, getUser, getPendingAuthStatus} from '../../reducers/user/selectors';
+import Header from '../header/header.jsx/index.js';
+import PageWrapper from '../page-wrapper/page-wrapper.jsx';
+import MainPage from '../main-page/main-page.jsx';
+import Favorites from '../favorites/favorites.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
+import OfferDetails from '../offer-details/offer-details.jsx';
+import {ROUTES} from '../../constants/constants';
+import withRedirectRoute from '../../hocs/with-redirect-route/with-redirect-route';
+import ErrorMessage from '../error-message/error-message';
+import NotFound from '../not-found/not-found';
 
-const App = ({offers, places, onCityClick, city}) => {
-  const citiesList = Array.from(new Set(places.map((place) => place.city.name)));
+const App = (props) => {
+  const {pendingAuthorization, isAuthenticated, user} = props;
 
-  return <MainScreen
-    offers={offers}
-    onCityClick={(selectedCity) => onCityClick(selectedCity, places)}
-    city={city}
-    cities={citiesList}
-  />;
-};
-
-App.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    city: PropTypes.object,
-    title: PropTypes.string,
-    type: PropTypes.string,
-    coords: PropTypes.arrayOf(PropTypes.number),
-    image: PropTypes.string,
-    price: PropTypes.string,
-    rate: PropTypes.number,
-    isBookmarked: PropTypes.bool,
-    isPremium: PropTypes.bool
-  })).isRequired,
-  places: PropTypes.arrayOf(PropTypes.shape({
-    city: PropTypes.object,
-    title: PropTypes.string,
-    type: PropTypes.string,
-    coords: PropTypes.arrayOf(PropTypes.number),
-    image: PropTypes.string,
-    price: PropTypes.string,
-    rate: PropTypes.number,
-    isBookmarked: PropTypes.bool,
-    isPremium: PropTypes.bool
-  })).isRequired,
-  onCityClick: PropTypes.func,
-  city: PropTypes.string,
-  cities: PropTypes.array,
+  return (
+    <React.Fragment>
+      {pendingAuthorization ? <div>Loading...</div> : (
+        <PageWrapper location={props.location.pathname}>
+          <Header
+            isAuthenticated={isAuthenticated}
+            user={user}
+          />
+          <Switch>
+            <Route
+              path={ROUTES.HOME}
+              component={MainPage}
+              exact
+            />
+            <Route
+              path={ROUTES.LOGIN}
+              component={withRedirectRoute(SignIn, isAuthenticated, ROUTES.HOME, true)}
+            />
+            <Route
+              path={`${ROUTES.OFFER}/:id`}
+              component={OfferDetails}
+            />
+            <Route
+              path={ROUTES.FAVORITES}
+              component={withRedirectRoute(Favorites, isAuthenticated, ROUTES.LOGIN)}
+            />
+            <Route
+              path={ROUTES.ERROR}
+              component={withRedirectRoute(ErrorMessage, isAuthenticated, ROUTES.HOME, true)}
+            />
+            <Route
+              component={NotFound}
+            />
+          </Switch>
+        </PageWrapper>
+      )}
+    </React.Fragment>
+  );
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  city: state.city,
-  offers: state.offers,
+  isAuthenticated: getAuthorizationStatus(state),
+  user: getUser(state),
+  pendingAuthorization: getPendingAuthStatus(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onCityClick: (selectedCity, selectedOffers) => {
-    dispatch(ActionCreator.changeCity(selectedCity));
-    dispatch(ActionCreator.fetchOffers(selectedCity, selectedOffers));
-  }
-});
+App.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    email: PropTypes.string,
+    name: PropTypes.string,
+    [`avatar_url`]: PropTypes.string,
+    [`is_pro`]: PropTypes.bool,
+  }),
+  pendingAuthorization: PropTypes.bool,
+  location: PropTypes.any,
+};
 
 export {App};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App);
+export default withRouter(connect(mapStateToProps)(App));
