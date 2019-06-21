@@ -4,15 +4,25 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {compose} from 'recompose';
-import {BrowserRouter} from 'react-router-dom';
+import {Router} from 'react-router-dom';
 import {Operation, ActionCreator} from './reducers/data/data';
 import {Operation as UserOperation, ActionCreator as UserActions} from './reducers/user/user';
 import {getRandomOffer} from './reducers/data/selectors';
 import App from './components/app/app';
 import reducer from './reducers/index';
 import {createAPI} from './api';
+import {ROUTES} from './constants/constants';
+import {createBrowserHistory} from 'history';
 
-const api = createAPI(() => store.dispatch(UserActions.requireAuthorization(false)));
+const api = createAPI(
+    () => {
+      store.dispatch(UserActions.requireAuthorization(false));
+    },
+    () => {
+      store.dispatch(UserActions.requireAuthorization(false));
+      history.push(ROUTES.ERROR);
+    }
+);
 
 const store = createStore(
     reducer,
@@ -21,6 +31,8 @@ const store = createStore(
         window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (a) => a
     )
 );
+
+const history = createBrowserHistory();
 
 store.dispatch(UserOperation.checkAuthorization());
 
@@ -36,9 +48,9 @@ store.dispatch(Operation.loadOffers())
 
 ReactDOM.render(
     <Provider store={store}>
-      <BrowserRouter>
+      <Router history={history}>
         <App />
-      </BrowserRouter>
+      </Router>
     </Provider>,
     document.querySelector(`#root`)
 );
