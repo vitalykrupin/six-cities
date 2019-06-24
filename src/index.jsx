@@ -1,56 +1,27 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
+import ReactDom from 'react-dom';
 import {createStore, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
+import leaflet from 'leaflet';
 import {compose} from 'recompose';
-import {Router} from 'react-router-dom';
-import {Operation, ActionCreator} from './reducers/data/data';
-import {Operation as UserOperation, ActionCreator as UserActions} from './reducers/user/user';
-import {getRandomOffer} from './reducers/data/selectors';
+import {BrowserRouter} from 'react-router-dom';
 import App from './components/app/app';
-import reducer from './reducers/index';
-import {createAPI} from './api';
-import {ROUTES} from './constants/constants';
-import {createBrowserHistory} from 'history';
+import {configureAPI} from './api';
+import reducer from './reducer/main-reducer';
+import history from './history';
 
-const api = createAPI(
-    () => {
-      store.dispatch(UserActions.requireAuthorization(false));
-    },
-    () => {
-      store.dispatch(UserActions.requireAuthorization(false));
-      history.push(ROUTES.ERROR);
-    }
-);
+const init = () => {
+  const api = configureAPI(() => history.push(`/login`));
+  const store = createStore(reducer, compose(applyMiddleware(thunk.withExtraArgument(api)), window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (a) => a));
 
-const store = createStore(
-    reducer,
-    compose(
-        applyMiddleware(thunk.withExtraArgument(api)),
-        window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (a) => a
-    )
-);
+  ReactDom.render(<Provider store={store}>
+    <BrowserRouter>
+      <App leaflet={leaflet} />
+    </BrowserRouter>
+  </Provider>,
+  document.querySelector(`#root`)
+  );
+};
 
-const history = createBrowserHistory();
-
-store.dispatch(UserOperation.checkAuthorization());
-
-store.dispatch(Operation.loadOffers())
-  .then(() => {
-    const currentState = store.getState();
-    const offer = getRandomOffer(currentState);
-
-    if (offer) {
-      store.dispatch(ActionCreator.changeCity(offer.city));
-    }
-  });
-
-ReactDOM.render(
-    <Provider store={store}>
-      <Router history={history}>
-        <App />
-      </Router>
-    </Provider>,
-    document.querySelector(`#root`)
-);
+init();

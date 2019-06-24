@@ -1,21 +1,17 @@
 import axios from 'axios';
 
-const BASE_URL = `https://es31-server.appspot.com/six-cities`;
-const TIMEOUT = 5000;
-const STATUS_FORBIDDEN = 403;
-
-export const createAPI = (onLoginFail) => {
+export const configureAPI = ((onLoginFail) => {
   const api = axios.create({
-    baseURL: BASE_URL,
-    timeout: TIMEOUT,
-    withCredentials: true
+    baseURL: `https://es31-server.appspot.com/six-cities`,
+    timeout: 5000,
+    withCredentials: true,
   });
-
 
   const onSuccess = (response) => response;
   const onFail = (error) => {
-    if (error.response.status === STATUS_FORBIDDEN) {
+    if (error.response.request.responseURL.indexOf(`/login`) === -1 && error.response.status === 403) {
       onLoginFail();
+      return;
     }
     throw error;
   };
@@ -23,4 +19,4 @@ export const createAPI = (onLoginFail) => {
   api.interceptors.response.use(onSuccess, onFail);
 
   return api;
-};
+});
