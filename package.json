@@ -24,6 +24,7 @@
     "eslint-plugin-react": "7.12.4",
     "jest": "24.8.0",
     "react-test-renderer": "16.8.6",
+    "redux-mock-store": "1.5.3",
     "webpack": "4.30.0",
     "webpack-cli": "3.3.1",
     "webpack-dev-server": "3.3.1"
@@ -33,13 +34,16 @@
   },
   "dependencies": {
     "axios": "0.18.0",
+    "history": "4.9.0",
     "leaflet": "1.5.1",
     "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-redux": "7.0.3",
+    "react-router-dom": "5.0.1",
     "recompose": "0.30.0",
     "redux": "4.0.1",
-    "redux-thunk": "2.3.0"
+    "redux-thunk": "2.3.0",
+    "reselect": "4.0.0"
   }
 }

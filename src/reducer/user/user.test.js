@@ -8,9 +8,12 @@ describe(`Reducer works correctly: `, () => {
     const api = configureAPI(dispatch);
     const apiMock = new MockAdapter(api);
 
-    apiMock.onPost(`/login`).reply(200, [{email: `me@me.ru`}]);
+    apiMock
+      .onPost(`/login`)
+      .reply(200, [{email: `me@me.ru`}]);
 
-    return Operation.authorizeUser(`me@me.ru`, `yt`)(dispatch, jest.fn(), api)
+    return Operation
+      .authorizeUser(`me@me.ru`, `12`)(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(4);
         expect(dispatch.mock.calls[0][0]).toEqual({
