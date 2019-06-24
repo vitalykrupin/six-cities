@@ -1,25 +1,26 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDom from 'react-dom';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import {createStore} from "redux";
-
+import thunk from 'redux-thunk';
+import leaflet from 'leaflet';
+import {compose} from 'recompose';
+import {BrowserRouter} from 'react-router-dom';
 import App from './components/app/app';
-import {offers} from '../src/mocks/offers';
-import {reducer} from "./reducer";
+import {configureAPI} from './api';
+import reducer from './reducer/main-reducer';
+import history from './history';
 
 const init = () => {
-  const store = createStore(
-      reducer,
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  );
+  const api = configureAPI(() => history.push(`/login`));
+  const store = createStore(reducer, compose(applyMiddleware(thunk.withExtraArgument(api)), window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (a) => a));
 
-  ReactDOM.render(
-      <Provider store={store}>
-        <App
-          places={offers}
-        />
-      </Provider>,
-      document.querySelector(`#root`)
+  ReactDom.render(<Provider store={store}>
+    <BrowserRouter>
+      <App leaflet={leaflet} />
+    </BrowserRouter>
+  </Provider>,
+  document.querySelector(`#root`)
   );
 };
 

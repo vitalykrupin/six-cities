@@ -1,5 +1,4 @@
 const path = require(`path`);
-const webpack = require(`webpack`);
 
 module.exports = {
   entry: `./src/index.jsx`,
@@ -13,7 +12,6 @@ module.exports = {
     contentBase: path.join(__dirname, `public`),
     compress: false,
     port: 8080,
-    historyApiFallback: true
   },
   module: {
     rules: [
@@ -27,7 +25,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [`*`, `.js`, `.jsx`]
+    extensions: [`.ts`, `.tsx`, `.js`, `.jsx`, `json`]
   },
   devtool: `source-map`,
 };

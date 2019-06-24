@@ -1,107 +1,149 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app';
-import {createStore} from 'redux';
-import {initialState, reducer} from '../../reducer';
+import {BrowserRouter} from 'react-router-dom';
+import leafletMock from '../../mocks/leaflet-mock';
 import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store';
+import {App} from '../app/app';
+import {Operation} from '../../reducer/data/data';
+import {Operation as OperationUser} from '../../reducer/user/user';
+import NameSpace from '../../reducer/name-space';
 
-const createMockStore = (state = initialState) => createStore(reducer, state);
+jest.mock(`../../reducer/data/data`);
+jest.mock(`../../reducer/user/user`);
+Operation.addToFavorites = () => (dispatch) => dispatch(jest.fn());
+Operation.deleteFromFavorites = () => (dispatch) => dispatch(jest.fn());
+OperationUser.authorizeUser = () => (dispatch) => dispatch(jest.fn());
 
-export const MockProvider = ({state = initialState, children} = {}) => (
-  <Provider store={createMockStore(state)}>
-    {children}
-  </Provider>
-);
-
-const mockData = [
-  {
-    city: {
-      name: `Paris`,
-      coords: [1, 3],
+describe(`App`, () => {
+  const mockOffers = [
+    {
+      id: 1,
+      title: `Strange place`,
+      isPremium: true,
+      price: 1200,
+      rating: 1.5,
+      isFavorite: false,
+      description: ``,
+      type: `Apartment`,
+      previewImage: ``,
+      images: [``],
+      goods: [``],
+      bedrooms: 2,
+      maxAdults: 4,
+      host: {},
+      location: {
+        atitude: 12,
+        longitude: 87,
+        zoom: 11,
+      },
+      city: {
+        name: `Berlin`,
+        location: {
+          atitude: 51,
+          longitude: 7,
+          zoom: 11,
+        },
+      },
     },
-    title: `Beautiful, luxurious apartment at great location`,
-    type: `Apartment`,
-    coords: [52.3909553943508, 4.85309666406198],
-    image: `img/apartment-01.jpg`,
-    price: `120`,
-    rate: 93,
-    isBookmarked: true,
-    isPremium: true
-  },
-  {
-    city: {
-      name: `Amsterdam`,
-      coords: [48.8351, 2.3425],
+    {
+      id: 2,
+      title: `Weird place`,
+      isPremium: true,
+      price: 800,
+      rating: 1.5,
+      isFavorite: false,
+      description: ``,
+      type: `Private room`,
+      previewImage: ``,
+      images: [``],
+      goods: [``],
+      bedrooms: 2,
+      maxAdults: 4,
+      host: {},
+      location: {
+        atitude: 13,
+        longitude: 88,
+        zoom: 11,
+      },
+      city: {
+        name: `Dusseldorf`,
+        location: {
+          atitude: 52,
+          longitude: 8,
+          zoom: 11,
+        },
+      },
     },
-    title: `Wood and stone place`,
-    type: `Private room`,
-    coords: [52.369553943508, 4.85309666406198],
-    image: `img/room.jpg`,
-    price: `80`,
-    rate: 80,
-    isBookmarked: false,
-    isPremium: false
-  },
-  {
-    city: {
-      name: `Cologne`,
-      coords: [150, 2],
-    },
-    title: `Canal View Prinsengracht`,
-    type: `Apartment`,
-    coords: [52.3909553943508, 4.929309666406198],
-    image: `img/apartment-02.jpg`,
-    price: `132`,
-    rate: 80,
-    isBookmarked: true,
-    isPremium: false
-  },
-  {
-    city: {
-      name: `Berlin`,
-      coords: [11, 16],
-    },
-    title: `Nice, cozy, warm big bed apartment`,
-    type: `Apartment`,
-    coords: [52.3809553943508, 4.939309666406198],
-    image: `img/apartment-03.jpg`,
-    price: `180`,
-    rate: 100,
-    isBookmarked: false,
-    isPremium: true
-  },
-  {
-    city: {
-      name: `Cologne`,
-      coords: [150, 2],
-    },
-    title: `Canal View Prinsengracht`,
-    type: `Apartment`,
-    coords: [52.3909553943508, 4.929309666406198],
-    image: `img/apartment-02.jpg`,
-    price: `132`,
-    rate: 80,
-    isBookmarked: true,
-    isPremium: false
-  }
-];
+  ];
 
-const fixContainerLeafletTest = () => {
-  const div = global.document.createElement(`div`);
-  div.setAttribute(`id`, `map`);
-  global.document.body.appendChild(div);
-};
+  const NAME_SPACE_DATA = NameSpace.DATA;
+  const NAME_SPACE_USER = NameSpace.USER;
+  const middleware = [thunk];
+  const mockStore = configureMockStore(middleware);
+  const initialState = {};
+  initialState[NAME_SPACE_DATA] = {
+    city: {},
+    offers: mockOffers,
+    reviews: [
+      {
+        id: 1,
+        comment: `Weird place`,
+        rating: 1.5,
+        date: `2019-05-16T21:02:58.227Z`,
+        user: {
+          avatarUrl: `path.jpg`,
+          id: 8,
+          isPro: false,
+          name: `Kurt`,
+        },
+      },
+      {
+        id: 2,
+        comment: `Strange place`,
+        rating: 2.5,
+        date: `2019-06-16T21:02:58.227Z`,
+        user: {
+          avatarUrl: `path.jpg`,
+          id: 9,
+          isPro: false,
+          name: `Kate`,
+        },
+      },
+    ],
+    isReviewSending: false,
+    didReviewSent: false,
+    sendError: null,
+  };
+  initialState[NAME_SPACE_USER] = {
+    user: {},
+    authError: null,
+    isAuthorizationRequired: false,
+  };
+  const store = mockStore(initialState);
 
-fixContainerLeafletTest();
+  it(`renders correctly`, () => {
+    const tree = renderer
+      .create(
+          <BrowserRouter>
+            <Provider store={store}>
+              <App
+                offers={mockOffers}
+                city={mockOffers[0].city}
+                leaflet={leafletMock}
+                onCityClick={jest.fn()}
+                onLogIn={jest.fn()}
+                onLoadOffers={jest.fn()}
+                isAuthorizationRequired={true}
+                user={{
+                  avatarUrl: `/path.jpg`,
+                }}
+              />
+            </Provider>
+          </BrowserRouter>)
+      .toJSON();
 
-it(`App correctly renders`, () => {
-  const tree = renderer
-    .create(
-        <MockProvider>
-          <App places={mockData}/>)
-        </MockProvider>
-    )
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
 });

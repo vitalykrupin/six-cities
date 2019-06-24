@@ -1,64 +1,82 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Map from './map';
+import Map from '../map/map';
+import leafletMock from '../../mocks/leaflet-mock';
 
-const mockData = [
-  {
-    title: `Beautiful, luxurious apartment at great location`,
-    type: `Apartment`,
-    coords: [52.3909553943508, 4.85309666406198],
-    image: `img/apartment-01.jpg`,
-    price: `120`,
-    rate: 93,
-    isBookmarked: true,
-    isPremium: true
-  },
-  {
-    title: `Wood and stone place`,
-    type: `Private room`,
-    coords: [52.369553943508, 4.85309666406198],
-    image: `img/room.jpg`,
-    price: `80`,
-    rate: 80,
-    isBookmarked: false,
-    isPremium: false
-  },
-  {
-    title: `Canal View Prinsengracht`,
-    type: `Apartment`,
-    coords: [52.3909553943508, 4.929309666406198],
-    image: `img/apartment-02.jpg`,
-    price: `132`,
-    rate: 80,
-    isBookmarked: true,
-    isPremium: false
-  },
-  {
-    title: `Nice, cozy, warm big bed apartment`,
-    type: `Apartment`,
-    coords: [52.3809553943508, 4.939309666406198],
-    image: `img/apartment-03.jpg`,
-    price: `180`,
-    rate: 100,
-    isBookmarked: false,
-    isPremium: true
-  }
-];
+describe(`Map`, () => {
+  const places = [
+    {
+      id: 1,
+      title: `Strange place`,
+      isPremium: true,
+      price: 1200,
+      rating: 1.8,
+      isFavorite: false,
+      description: ``,
+      type: `Apartment`,
+      previewImage: ``,
+      images: [``],
+      goods: [``],
+      bedrooms: 2,
+      maxAdults: 4,
+      host: {},
+      location: {
+        atitude: 12,
+        longitude: 87,
+        zoom: 11,
+      },
+      city: {
+        name: `Berlin`,
+        location: {
+          atitude: 51,
+          longitude: 7,
+          zoom: 11,
+        },
+      },
+    },
+    {
+      id: 2,
+      title: `Weird place`,
+      isPremium: true,
+      price: 800,
+      rating: 1.5,
+      isFavorite: true,
+      description: ``,
+      type: `Private room`,
+      previewImage: ``,
+      images: [``],
+      goods: [``],
+      bedrooms: 2,
+      maxAdults: 4,
+      host: {},
+      location: {
+        atitude: 13,
+        longitude: 88,
+        zoom: 11,
+      },
+      city: {
+        name: `Dusseldorf`,
+        location: {
+          atitude: 52,
+          longitude: 8,
+          zoom: 11,
+        },
+      },
+    },
+  ];
 
-const fixContainerLeafletTest = () => {
-  const div = global.document.createElement(`div`);
-  div.setAttribute(`id`, `map`);
-  global.document.body.appendChild(div);
-};
+  it(`renders correctly`, () => {
+    const tree = renderer
+      .create(
+          <Map
+            offers={places}
+            city={places[0].city}
+            leaflet={leafletMock}
+            activeCard={places[0]}
+          />
+      )
+      .toJSON();
 
-fixContainerLeafletTest();
-
-it(`App correctly renders`, () => {
-  Map.prototype.componentDidMount = () => {};
-
-  const tree = renderer
-    .create(<Map offers={mockData} />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
 });
