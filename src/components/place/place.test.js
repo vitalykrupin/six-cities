@@ -1,11 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {BrowserRouter} from 'react-router-dom';
-import leafletMock from '../../mocks/leaflet-mock';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import {App} from '../app/app';
+import {Place} from '../place/place';
 import {Operation} from '../../reducer/data/data';
 import {Operation as OperationUser} from '../../reducer/user/user';
 import NameSpace from '../../reducer/name-space';
@@ -16,7 +15,7 @@ Operation.addToFavorites = () => (dispatch) => dispatch(jest.fn());
 Operation.deleteFromFavorites = () => (dispatch) => dispatch(jest.fn());
 OperationUser.authorizeUser = () => (dispatch) => dispatch(jest.fn());
 
-describe(`App`, () => {
+describe(`Place`, () => {
   const mockOffers = [
     {
       id: 1,
@@ -128,20 +127,14 @@ describe(`App`, () => {
       .create(
           <BrowserRouter>
             <Provider store={store}>
-              <App
+              <Place
+                place={mockOffers[0]}
+                onPlaceClick={jest.fn()}
                 offers={mockOffers}
-                city={mockOffers[0].city}
-                leaflet={leafletMock}
-                onCityClick={jest.fn()}
-                onLogIn={jest.fn()}
-                onLoadOffers={jest.fn()}
-                isAuthorizationRequired={true}
-                user={{
-                  avatarUrl: `/path.jpg`,
-                }}
               />
             </Provider>
-          </BrowserRouter>)
+          </BrowserRouter>
+      )
       .toJSON();
 
     expect(tree).toMatchSnapshot();

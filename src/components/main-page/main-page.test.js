@@ -5,7 +5,7 @@ import leafletMock from '../../mocks/leaflet-mock';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import {App} from '../app/app';
+import {MainPage} from '../main-page/main-page';
 import {Operation} from '../../reducer/data/data';
 import {Operation as OperationUser} from '../../reducer/user/user';
 import NameSpace from '../../reducer/name-space';
@@ -16,8 +16,8 @@ Operation.addToFavorites = () => (dispatch) => dispatch(jest.fn());
 Operation.deleteFromFavorites = () => (dispatch) => dispatch(jest.fn());
 OperationUser.authorizeUser = () => (dispatch) => dispatch(jest.fn());
 
-describe(`App`, () => {
-  const mockOffers = [
+describe(`MainPage`, () => {
+  const places = [
     {
       id: 1,
       title: `Strange place`,
@@ -85,7 +85,7 @@ describe(`App`, () => {
   const initialState = {};
   initialState[NAME_SPACE_DATA] = {
     city: {},
-    offers: mockOffers,
+    offers: places,
     reviews: [
       {
         id: 1,
@@ -123,25 +123,35 @@ describe(`App`, () => {
   };
   const store = mockStore(initialState);
 
+  const cities = [`Berlin`, `Dusseldorf`];
+
   it(`renders correctly`, () => {
     const tree = renderer
       .create(
           <BrowserRouter>
             <Provider store={store}>
-              <App
-                offers={mockOffers}
-                city={mockOffers[0].city}
-                leaflet={leafletMock}
-                onCityClick={jest.fn()}
-                onLogIn={jest.fn()}
-                onLoadOffers={jest.fn()}
-                isAuthorizationRequired={true}
-                user={{
-                  avatarUrl: `/path.jpg`,
+              <MainPage
+                offers={places}
+                cities={cities}
+                city={{
+                  name: `Dusseldorf`,
+                  location: {
+                    atitude: 52,
+                    longitude: 8,
+                    zoom: 11,
+                  },
                 }}
+                onCityClick={jest.fn()}
+                leaflet={leafletMock}
+                onPlaceClick={jest.fn()}
+                activeCard={{}}
+                sortedOffers={places}
+                onSortingClick={jest.fn()}
+                activeSorting={1}
               />
             </Provider>
-          </BrowserRouter>)
+          </BrowserRouter>
+      )
       .toJSON();
 
     expect(tree).toMatchSnapshot();

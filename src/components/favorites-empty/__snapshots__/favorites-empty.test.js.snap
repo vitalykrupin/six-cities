@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FavoritesEmpty renders correctly 1`] = `
+Array [
+  <main
+    className="page__main page__main--favorites page__main--favorites-empty"
+  >
+    <div
+      className="page__favorites-container container"
+    >
+      <section
+        className="favorites favorites--empty"
+      >
+        <h1
+          className="visually-hidden"
+        >
+          Favorites (empty)
+        </h1>
+        <div
+          className="favorites__status-wrapper"
+        >
+          <b
+            className="favorites__status"
+          >
+            Nothing yet saved.
+          </b>
+          <p
+            className="favorites__status-description"
+          >
+            Save properties to narrow down search or plan yor future trips.
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>,
+  <footer
+    className="footer container"
+  >
+    <a
+      className="footer__logo-link"
+      href="/"
+      onClick={[Function]}
+    >
+      <img
+        alt="6 cities logo"
+        className="footer__logo"
+        height="33"
+        src="img/logo.svg"
+        width="64"
+      />
+    </a>
+  </footer>,
+]
+`;
