@@ -1,80 +1,149 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Switch, Route, withRouter} from 'react-router-dom';
-import {getAuthorizationStatus, getUser, getPendingAuthStatus} from '../../reducers/user/selectors';
-import Header from '../header/header.jsx/index.js';
-import PageWrapper from '../page-wrapper/page-wrapper.jsx';
-import MainPage from '../main-page/main-page.jsx';
-import Favorites from '../favorites/favorites.jsx';
-import SignIn from '../sign-in/sign-in.jsx';
-import OfferDetails from '../offer-details/offer-details.jsx';
-import {ROUTES} from '../../constants/constants';
-import withRedirectRoute from '../../hocs/with-redirect-route/with-redirect-route';
-import ErrorMessage from '../error-message/error-message';
-import NotFound from '../not-found/not-found';
+import {Switch, Route, Redirect} from 'react-router-dom';
+import MainPage from '../main-page/main-page';
+import MainPageEmpty from '../main-page-empty/main-page-empty';
+import SignIn from '../sign-in/sign-in';
+import Header from '../header/header';
+import Favorites from '../favorites/favorites';
+import Room from '../room/room';
+import {ActionCreator, Operation} from '../../reducer/data/data';
+import {Operation as UserOperation} from '../../reducer/user/user';
+import {getCity, getOffers} from '../../reducer/data/selectors';
+import {getAuthorizationStatus, getUserData} from '../../reducer/user/selectors';
+import withPrivateRoute from '../../hocs/with-private-route/with-private-route';
 
-const App = (props) => {
-  const {pendingAuthorization, isAuthenticated, user} = props;
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <React.Fragment>
-      {pendingAuthorization ? <div>Loading...</div> : (
-        <PageWrapper location={props.location.pathname}>
+  componentDidMount() {
+    this.props.onLogIn();
+    this.props.onLoadOffers();
+  }
+
+  render() {
+    const {
+      leaflet,
+      offers,
+      city,
+      onCityClick,
+      isAuthorizationRequired,
+      user
+    } = this.props;
+
+    const cities = Array.from(offers.slice().reduce((array, current) => {
+      array.add(current.city.name);
+      return array;
+    }, new Set())).slice(0, 6);
+
+    const Main = offers.length > 0 ? <MainPage
+      offers={offers}
+      cities={cities}
+      city={city}
+      onCityClick={(selectedCity) => onCityClick(selectedCity, offers)}
+      leaflet={leaflet}
+    /> : <MainPageEmpty
+      city={city}
+    />;
+
+    return <Switch>
+      <Route path="/" exact render={() => {
+        return <div className="page page--gray page--main">
           <Header
-            isAuthenticated={isAuthenticated}
+            user={user}
+            isAuthorizationRequired={isAuthorizationRequired}/>
+          {Main}
+        </div>;
+      }}
+      />
+      <Route path="/login" exact render={() => {
+        return <div className="page page--gray page--login">
+          <Header
+            user={user}
+            isAuthorizationRequired={isAuthorizationRequired}/>
+          <SignIn
             user={user}
           />
-          <Switch>
-            <Route
-              path={ROUTES.HOME}
-              component={MainPage}
-              exact
-            />
-            <Route
-              path={ROUTES.LOGIN}
-              component={withRedirectRoute(SignIn, isAuthenticated, ROUTES.HOME, true)}
-            />
-            <Route
-              path={`${ROUTES.OFFER}/:id`}
-              component={OfferDetails}
-            />
-            <Route
-              path={ROUTES.FAVORITES}
-              component={withRedirectRoute(Favorites, isAuthenticated, ROUTES.LOGIN)}
-            />
-            <Route
-              path={ROUTES.ERROR}
-              component={withRedirectRoute(ErrorMessage, isAuthenticated, ROUTES.HOME, true)}
-            />
-            <Route
-              component={NotFound}
-            />
-          </Switch>
-        </PageWrapper>
-      )}
-    </React.Fragment>
-  );
-};
-
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  isAuthenticated: getAuthorizationStatus(state),
-  user: getUser(state),
-  pendingAuthorization: getPendingAuthStatus(state),
-});
+        </div>;
+      }}
+      />
+      <Route path="/favorites" exact render={() => {
+        const WrappedFavorites = withPrivateRoute(Favorites, user);
+        return <div className="page">
+          <Header
+            user={user}
+            isAuthorizationRequired={isAuthorizationRequired}/>
+          <WrappedFavorites/>
+        </div>;
+      }
+      }/>
+      <Route path="/offer/:id" render={(routerProps) => {
+        return <div className="page">
+          <Header
+            user={user}
+            isAuthorizationRequired={isAuthorizationRequired}/>
+          <Room
+            {...routerProps}
+            offers={offers}
+          />
+        </div>;
+      }}
+      />
+      <Redirect from='*' to='/' />
+    </Switch>;
+  }
+}
 
 App.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-  user: PropTypes.shape({
-    id: PropTypes.number,
-    email: PropTypes.string,
-    name: PropTypes.string,
-    [`avatar_url`]: PropTypes.string,
-    [`is_pro`]: PropTypes.bool,
-  }),
-  pendingAuthorization: PropTypes.bool,
-  location: PropTypes.any,
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    type: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    images: PropTypes.array.isRequired,
+    goods: PropTypes.array.isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    maxAdults: PropTypes.number.isRequired,
+    host: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    city: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      location: PropTypes.object.isRequired,
+    }).isRequired,
+  })).isRequired,
+  leaflet: PropTypes.object.isRequired,
+  city: PropTypes.object.isRequired,
+  user: PropTypes.object,
+  onCityClick: PropTypes.func.isRequired,
+  onLogIn: PropTypes.func.isRequired,
+  onLoadOffers: PropTypes.func.isRequired,
+  isAuthorizationRequired: PropTypes.bool.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  city: getCity(state),
+  offers: getOffers(state),
+  user: getUserData(state),
+  isAuthorizationRequired: getAuthorizationStatus(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCityClick: (selectedCity, places) => {
+    dispatch(ActionCreator.changeCity(selectedCity, places));
+  },
+  onLogIn: () => dispatch(UserOperation.logIn()),
+  onLoadOffers: () => dispatch(Operation.loadOffers())
+});
+
 export {App};
-export default withRouter(connect(mapStateToProps)(App));
+
+export default connect(mapStateToProps, mapDispatchToProps
+)(App);
