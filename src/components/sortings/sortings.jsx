@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import withSortings from '../../hocs/with-sortings/with-sortings';
 
 const sortings = [
-  `Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`
+  `Popular`,
+  `Price: low to high`,
+  `Price: high to low`,
+  `Top rated first`
 ];
 
 const Sortings = (props) => {
