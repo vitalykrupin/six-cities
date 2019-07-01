@@ -14,7 +14,13 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {offers, city, leaflet, activeCard} = this.props;
+    const {
+      offers,
+      city,
+      leaflet,
+      activeCard
+    } = this.props;
+
     try {
       this._renderMap(offers, city, leaflet, activeCard);
     } catch (error) {
@@ -24,7 +30,13 @@ class Map extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      const {offers, city, leaflet, activeCard} = this.props;
+      const {
+        offers,
+        city,
+        leaflet,
+        activeCard
+      } = this.props;
+
       if (this.map) {
         this.map.remove();
       }
