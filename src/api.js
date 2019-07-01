@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {RequestStatus} from './constants';
 
 export const configureAPI = ((onLoginFail) => {
   const api = axios.create({
@@ -9,7 +10,7 @@ export const configureAPI = ((onLoginFail) => {
 
   const onSuccess = (response) => response;
   const onFail = (error) => {
-    if (error.response.request.responseURL.indexOf(`/login`) === -1 && error.response.status === 403) {
+    if (error.response.request.responseURL.indexOf(`/login`) === -1 && error.response.status === RequestStatus.FORBIDDEN) {
       onLoginFail();
       return;
     }

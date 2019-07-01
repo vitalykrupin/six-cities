@@ -1,6 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 import {reducer, ActionCreator, Operation} from '../data/data';
 import {configureAPI} from '../../api';
+import {RequestStatus} from '../../constants';
 
 const places = [
   {
@@ -81,7 +82,7 @@ describe(`Reducer works correctly: `, () => {
     const apiMock = new MockAdapter(api);
     const offersLoader = Operation.loadOffers();
 
-    apiMock.onGet(`/hotels`).reply(200, [{a: true}]);
+    apiMock.onGet(`/hotels`).reply(RequestStatus.SUCCESS, [{a: true}]);
 
     return offersLoader(dispatch, jest.fn(), api)
       .then(() => {

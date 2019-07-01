@@ -1,6 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 import {Operation} from './user';
 import {configureAPI} from '../../api';
+import {RequestStatus} from '../../constants';
 
 describe(`Reducer works correctly: `, () => {
   it(`should make correct API POST call to /login`, () => {
@@ -10,7 +11,7 @@ describe(`Reducer works correctly: `, () => {
 
     apiMock
       .onPost(`/login`)
-      .reply(200, [{email: `me@me.ru`}]);
+      .reply(RequestStatus.SUCCESS, [{email: `me@me.ru`}]);
 
     return Operation
       .authorizeUser(`me@me.ru`, `12`)(dispatch, jest.fn(), api)
