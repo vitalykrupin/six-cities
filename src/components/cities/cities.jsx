@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Cities = (props) => {
-  const {cities, onCityClick, city} = props;
+  const {
+    cities,
+    onCityClick,
+    city
+  } = props;
 
   return cities.map((item) => {
     return <li className="locations__item" key={`city-${item}`} onClick={() => {
