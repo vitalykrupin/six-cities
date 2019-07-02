@@ -26,11 +26,13 @@ class SendReviewForm extends PureComponent {
       onRadioClick,
       isValidated,
       isReviewSending,
-      sendError
+      sendError,
+      resetFormState
     } = this.props;
 
     return <form className="reviews__form form" action="#" method="post" onSubmit={(evt) => {
       evt.preventDefault();
+      resetFormState();
       const data = new FormData(evt.target);
       this._handleFormSubmit(data.get(`review`), data.get(`rating`), id);
     }} ref={this.formRef}>
@@ -80,7 +82,12 @@ class SendReviewForm extends PureComponent {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={isValidated && !isReviewSending ? false : true}>Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={!isValidated || isReviewSending ? true : false}>
+          Submit
+        </button>
       </div>
     </form>;
   }
@@ -105,6 +112,7 @@ SendReviewForm.propTypes = {
   isReviewSending: PropTypes.bool.isRequired,
   didReviewSent: PropTypes.bool.isRequired,
   sendError: PropTypes.string,
+  resetFormState: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({

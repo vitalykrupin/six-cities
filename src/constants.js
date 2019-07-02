@@ -4,3 +4,8 @@ export const RequestStatus = {
   UNAUTHORIZED: 401,
   SUCCESS: 200
 };
+
+export const CommentLength = {
+  MAX: 300,
+  MIN: 50
+};

@@ -1,27 +1,25 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Place from '../place/place';
 
-class PlaceList extends PureComponent {
-  render() {
-    const {offers, onPlaceClick} = this.props;
-    return <div className="cities__places-list places__list tabs__content">
+const PlaceList = (props) => {
+  const {offers, onPlaceClick} = props;
+
+  return (
+    <div className="cities__places-list places__list tabs__content">
       {
         offers.map((item) => {
-          return this._getPlace(item, onPlaceClick);
+          return <Place
+            place={item}
+            key={item.id}
+            onPlaceClick={onPlaceClick}
+          />;
         })
       }
-    </div>;
-  }
+    </div>
+  );
+};
 
-  _getPlace(item, onPlaceClick) {
-    return <Place
-      place={item}
-      key={item.id}
-      onPlaceClick={onPlaceClick}
-    />;
-  }
-}
 
 PlaceList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape({
