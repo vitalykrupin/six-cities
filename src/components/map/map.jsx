@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {Settings} from '../../constants';
 
 class Map extends PureComponent {
   constructor(props) {
@@ -59,7 +60,7 @@ class Map extends PureComponent {
     if (activeCard) {
       settings = {
         center: [activeCard.location.latitude, activeCard.location.longitude],
-        zoom: 13,
+        zoom: Settings.ZOOM,
         zoomControl: false,
         scrollWheelZoom: false,
         marker: true
@@ -67,7 +68,7 @@ class Map extends PureComponent {
     } else {
       settings = {
         center: [latitude, longitude],
-        zoom: 13,
+        zoom: Settings.ZOOM,
         zoomControl: false,
         scrollWheelZoom: false,
         marker: true

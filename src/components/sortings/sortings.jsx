@@ -26,8 +26,13 @@ const Sortings = (props) => {
         <use xlinkHref="#icon-arrow-select"/>
       </svg>
     </span>
-    <ul className={`places__options places__options--custom ${opened ? `places__options--opened` : ``}`} onMouseLeave={() => onMouseLeave()}>
-      {sortings.map((item, index) => <li className={`places__option ${index === activeSorting ? `places__option--active` : ``}`} tabIndex="0" key={`Sorting-${item}`} onClick={() => onSortingClick(index)}>{item}</li>)}
+    <ul
+      className={`places__options places__options--custom ${opened ? `places__options--opened` : ``}`}
+      onMouseLeave={() => onMouseLeave()}
+    >
+      {sortings.map((item, index) => <li className={`places__option ${index === activeSorting
+        ? `places__option--active`
+        : ``}`} tabIndex="0" key={`Sorting-${item}`} onClick={() => onSortingClick(index)}>{item}</li>)}
     </ul>
   </form>;
 };

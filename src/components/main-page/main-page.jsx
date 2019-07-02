@@ -8,8 +8,22 @@ import withActiveCard from '../../hocs/with-active-card/with-active-card';
 import withSorted from '../../hocs/with-sorted/with-sorted';
 
 const MainPage = (props) => {
-  const {cities, leaflet, offers, city, onCityClick, onPlaceClick, activeCard, onSortingClick, sortedOffers, activeSorting} = props;
-  const filteredOffers = sortedOffers.length === 0 ? offers.filter((item) => item.city.name === city.name) : sortedOffers;
+  const {
+    cities,
+    leaflet,
+    offers,
+    city,
+    onCityClick,
+    onPlaceClick,
+    activeCard,
+    onSortingClick,
+    sortedOffers,
+    activeSorting
+  } = props;
+
+  const filteredOffers = sortedOffers.length === 0
+    ? offers.filter((item) => item.city.name === city.name)
+    : sortedOffers;
 
   return <>
     <h1 className="visually-hidden">Cities</h1>
