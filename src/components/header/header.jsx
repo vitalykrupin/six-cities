@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 const Header = (props) => {
   const {user, isAuthorizationRequired} = props;
 
-  const userImage = isAuthorizationRequired ? {} : {backgroundImage: `url(https://es31-server.appspot.com/six-cities${user.avatarUrl})`};
+  const userImage = isAuthorizationRequired
+    ? {}
+    : {backgroundImage: `url(https://es31-server.appspot.com/six-cities${user.avatarUrl})`};
 
   return <>
     <div style={{display: `none`}}>
@@ -34,15 +36,20 @@ const Header = (props) => {
         <nav className="header__nav">
           <ul className="header__nav-list">
             <li className="header__nav-item user">
-              {isAuthorizationRequired ? (
-                <Link to="/login" className="header__nav-link header__nav-link--profile">
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  <span className="header__user-name user__name">Sign In</span>
-                </Link>
-              ) : <Link to="/favorites" className="header__nav-link header__nav-link--profile">
-                <div className="header__avatar-wrapper user__avatar-wrapper" style={user.avatarUrl ? userImage : {}}></div>
-                <span className="header__user-name user__name">{user.email ? user.email : `Sign In`}</span>
-              </Link>}
+              {isAuthorizationRequired
+                ? (
+                  <Link to="/login" className="header__nav-link header__nav-link--profile">
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                    <span className="header__user-name user__name">Sign In</span>
+                  </Link>
+                )
+                : (
+                  <Link to="/favorites" className="header__nav-link header__nav-link--profile">
+                    <div className="header__avatar-wrapper user__avatar-wrapper" style={user.avatarUrl ? userImage : {}}></div>
+                    <span className="header__user-name user__name">{user.email ? user.email : `Sign In`}</span>
+                  </Link>
+                )
+              }
             </li>
           </ul>
         </nav>

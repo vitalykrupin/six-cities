@@ -26,14 +26,22 @@ class SendReviewForm extends PureComponent {
       onRadioClick,
       isValidated,
       isReviewSending,
-      sendError
+      sendError,
+      resetFormState
     } = this.props;
 
-    return <form className="reviews__form form" action="#" method="post" onSubmit={(evt) => {
-      evt.preventDefault();
-      const data = new FormData(evt.target);
-      this._handleFormSubmit(data.get(`review`), data.get(`rating`), id);
-    }} ref={this.formRef}>
+    return <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={(evt) => {
+        evt.preventDefault();
+        resetFormState();
+        const data = new FormData(evt.target);
+        this._handleFormSubmit(data.get(`review`), data.get(`rating`), id);
+      }}
+      ref={this.formRef}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onClick={() => onRadioClick()} disabled={isReviewSending ? true : false}/>
@@ -80,7 +88,12 @@ class SendReviewForm extends PureComponent {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={isValidated && !isReviewSending ? false : true}>Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={!isValidated || isReviewSending ? true : false}>
+          Submit
+        </button>
       </div>
     </form>;
   }
@@ -105,6 +118,7 @@ SendReviewForm.propTypes = {
   isReviewSending: PropTypes.bool.isRequired,
   didReviewSent: PropTypes.bool.isRequired,
   sendError: PropTypes.string,
+  resetFormState: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({

@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {Settings} from '../../constants';
 
 class Map extends PureComponent {
   constructor(props) {
@@ -14,7 +15,13 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {offers, city, leaflet, activeCard} = this.props;
+    const {
+      offers,
+      city,
+      leaflet,
+      activeCard
+    } = this.props;
+
     try {
       this._renderMap(offers, city, leaflet, activeCard);
     } catch (error) {
@@ -24,7 +31,13 @@ class Map extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      const {offers, city, leaflet, activeCard} = this.props;
+      const {
+        offers,
+        city,
+        leaflet,
+        activeCard
+      } = this.props;
+
       if (this.map) {
         this.map.remove();
       }
@@ -47,7 +60,7 @@ class Map extends PureComponent {
     if (activeCard) {
       settings = {
         center: [activeCard.location.latitude, activeCard.location.longitude],
-        zoom: 13,
+        zoom: Settings.ZOOM,
         zoomControl: false,
         scrollWheelZoom: false,
         marker: true
@@ -55,7 +68,7 @@ class Map extends PureComponent {
     } else {
       settings = {
         center: [latitude, longitude],
-        zoom: 13,
+        zoom: Settings.ZOOM,
         zoomControl: false,
         scrollWheelZoom: false,
         marker: true

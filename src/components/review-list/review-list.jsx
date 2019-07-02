@@ -19,16 +19,19 @@ class ReviewList extends PureComponent {
   }
 
   render() {
-    const {reviews, id, isAuthorizationRequired} = this.props;
+    const {
+      reviews,
+      id,
+      isAuthorizationRequired
+    } = this.props;
 
     return <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
         {this._getReviews(reviews)}
       </ul>
-      {isAuthorizationRequired ? `` : <SendReviewForm
-        id={id}
-      />}
+
+      {isAuthorizationRequired ? `` : <SendReviewForm id={id} />}
     </section>;
   }
 
@@ -60,4 +63,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export {ReviewList};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewList);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ReviewList);

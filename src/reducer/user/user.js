@@ -1,3 +1,4 @@
+import {RequestStatus} from '../../constants';
 import {
   ActionCreator,
   normalizeKeys,
@@ -28,7 +29,7 @@ const Operation = {
         })
         .catch((error) => {
           if (error.response.status) {
-            if (error.response.status === 400) {
+            if (error.response.status === RequestStatus.BAD_REQUEST) {
               dispatch(UserActionCreator.authError(error.response.data.error));
               throw error;
             }
@@ -36,7 +37,7 @@ const Operation = {
         });
       })
       .catch((error) => {
-        if (error.response.status === 403 || error.response.status === 401) {
+        if (error.response.status === RequestStatus.FORBIDDEN || error.response.status === RequestStatus.UNAUTHORIZED) {
           dispatch(UserActionCreator.logOut());
         }
       });
@@ -54,7 +55,7 @@ const Operation = {
       })
       .catch((error) => {
         if (error.response.status) {
-          if (error.response.status === 400) {
+          if (error.response.status === RequestStatus.BAD_REQUEST) {
             dispatch(UserActionCreator.authError(error.response.data.error));
           }
         }
