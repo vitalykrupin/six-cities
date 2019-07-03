@@ -1,8 +1,8 @@
-import React, {PureComponent} from 'react';
+import * as React from 'react';
 import {Redirect} from 'react-router-dom';
 
 const withPrivateRoute = (Component, data) => {
-  class WithPrivateRoute extends PureComponent {
+  class WithPrivateRoute extends React.PureComponent {
     render() {
       if (!data.name) {
         return <Redirect to="/login" />;

@@ -1,8 +1,22 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {Subtract} from 'utility-types';
+import {Place} from '../../types';
+
+interface State {
+  sortedOffers: [],
+  activeSorting: number,
+}
+
+interface InjectedProps {
+  onSortingClick: () => void,
+  sortedOffers: Place[],
+  activeSorting: number,
+}
 
 const withSorted = (Component) => {
-  class WithSorted extends PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectedProps>;
+  class WithSorted extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 
@@ -65,31 +79,6 @@ const withSorted = (Component) => {
       }
     }
   }
-
-  WithSorted.propTypes = {
-    city: PropTypes.object,
-    offers: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      price: PropTypes.number.isRequired,
-      rating: PropTypes.number.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
-      type: PropTypes.string.isRequired,
-      previewImage: PropTypes.string.isRequired,
-      images: PropTypes.array.isRequired,
-      goods: PropTypes.array.isRequired,
-      bedrooms: PropTypes.number.isRequired,
-      maxAdults: PropTypes.number.isRequired,
-      host: PropTypes.object.isRequired,
-      location: PropTypes.object.isRequired,
-      city: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        location: PropTypes.object.isRequired,
-      }).isRequired,
-    })).isRequired,
-  };
   return WithSorted;
 };
 

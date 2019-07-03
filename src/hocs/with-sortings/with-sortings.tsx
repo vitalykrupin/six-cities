@@ -1,7 +1,20 @@
-import React, {PureComponent} from 'react';
+import * as React from 'react';
+import {Subtract} from 'utility-types';
+
+interface State {
+  opened: boolean,
+}
+
+interface InjectedProps {
+  onSortingsClick: () => void,
+  onMouseLeave: () => void,
+  opened: boolean,
+}
 
 const withSortings = (Component) => {
-  class WithSortings extends PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectedProps>;
+  class WithSortings extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 
