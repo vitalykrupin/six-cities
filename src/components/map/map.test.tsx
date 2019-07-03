@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import renderer from 'react-test-renderer';
-import Map from '../map/map';
+import Map from './map';
 import leafletMock from '../../mocks/leaflet-mock';
 
 describe(`Map`, () => {
@@ -19,16 +19,22 @@ describe(`Map`, () => {
       goods: [``],
       bedrooms: 2,
       maxAdults: 4,
-      host: {},
+      host: {
+        id: 3,
+        email: `t@ya.ru`,
+        name: `Alice`,
+        avatarUrl: `path`,
+        isPro: true
+      },
       location: {
-        atitude: 12,
+        latitude: 12,
         longitude: 87,
         zoom: 11,
       },
       city: {
         name: `Berlin`,
         location: {
-          atitude: 51,
+          latitude: 51,
           longitude: 7,
           zoom: 11,
         },
@@ -48,22 +54,29 @@ describe(`Map`, () => {
       goods: [``],
       bedrooms: 2,
       maxAdults: 4,
-      host: {},
+      host: {
+        id: 2,
+        email: `y@ya.ru`,
+        name: `Alice`,
+        avatarUrl: `path`,
+        isPro: false
+      },
       location: {
-        atitude: 13,
+        latitude: 13,
         longitude: 88,
         zoom: 11,
       },
       city: {
         name: `Dusseldorf`,
         location: {
-          atitude: 52,
+          latitude: 52,
           longitude: 8,
           zoom: 11,
         },
       },
     },
   ];
+
 
   it(`renders correctly`, () => {
     const tree = renderer
@@ -73,6 +86,7 @@ describe(`Map`, () => {
             city={places[0].city}
             leaflet={leafletMock}
             activeCard={places[0]}
+            className={`no`}
           />
       )
       .toJSON();

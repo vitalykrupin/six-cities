@@ -1,11 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import renderer from 'react-test-renderer';
 import {BrowserRouter} from 'react-router-dom';
-import leafletMock from '../../mocks/leaflet-mock';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import {MainPage} from '../main-page/main-page';
+import {Place} from './place';
 import {Operation} from '../../reducer/data/data';
 import {Operation as OperationUser} from '../../reducer/user/user';
 import NameSpace from '../../reducer/name-space';
@@ -16,8 +15,8 @@ Operation.addToFavorites = () => (dispatch) => dispatch(jest.fn());
 Operation.deleteFromFavorites = () => (dispatch) => dispatch(jest.fn());
 OperationUser.authorizeUser = () => (dispatch) => dispatch(jest.fn());
 
-describe(`MainPage`, () => {
-  const places = [
+describe(`Place`, () => {
+  const mockOffers = [
     {
       id: 1,
       title: `Strange place`,
@@ -27,21 +26,27 @@ describe(`MainPage`, () => {
       isFavorite: false,
       description: ``,
       type: `Apartment`,
-      previewImage: ``,
-      images: [``],
+      previewImage: `3.jpg`,
+      images: [`4.jpg`],
       goods: [``],
       bedrooms: 2,
       maxAdults: 4,
-      host: {},
+      host: {
+        id: 2,
+        email: `y@ya.ru`,
+        name: `Alice`,
+        avatarUrl: `path`,
+        isPro: false
+      },
       location: {
-        atitude: 12,
+        latitude: 12,
         longitude: 87,
         zoom: 11,
       },
       city: {
         name: `Berlin`,
         location: {
-          atitude: 51,
+          latitude: 51,
           longitude: 7,
           zoom: 11,
         },
@@ -56,26 +61,32 @@ describe(`MainPage`, () => {
       isFavorite: false,
       description: ``,
       type: `Private room`,
-      previewImage: ``,
-      images: [``],
+      previewImage: `2.jpg`,
+      images: [`1.jpg`],
       goods: [``],
       bedrooms: 2,
       maxAdults: 4,
-      host: {},
+      host: {
+        id: 3,
+        email: `r@ya.ru`,
+        name: `Alice`,
+        avatarUrl: `path`,
+        isPro: true
+      },
       location: {
-        atitude: 13,
+        latitude: 13,
         longitude: 88,
         zoom: 11,
       },
       city: {
         name: `Dusseldorf`,
         location: {
-          atitude: 52,
+          latitude: 52,
           longitude: 8,
           zoom: 11,
         },
       },
-    },
+    }
   ];
 
   const NAME_SPACE_DATA = NameSpace.DATA;
@@ -85,7 +96,7 @@ describe(`MainPage`, () => {
   const initialState = {};
   initialState[NAME_SPACE_DATA] = {
     city: {},
-    offers: places,
+    offers: mockOffers,
     reviews: [
       {
         id: 1,
@@ -123,31 +134,15 @@ describe(`MainPage`, () => {
   };
   const store = mockStore(initialState);
 
-  const cities = [`Berlin`, `Dusseldorf`];
-
   it(`renders correctly`, () => {
     const tree = renderer
       .create(
           <BrowserRouter>
             <Provider store={store}>
-              <MainPage
-                offers={places}
-                cities={cities}
-                city={{
-                  name: `Dusseldorf`,
-                  location: {
-                    atitude: 52,
-                    longitude: 8,
-                    zoom: 11,
-                  },
-                }}
-                onCityClick={jest.fn()}
-                leaflet={leafletMock}
+              <Place
+                place={mockOffers[0]}
                 onPlaceClick={jest.fn()}
-                activeCard={{}}
-                sortedOffers={places}
-                onSortingClick={jest.fn()}
-                activeSorting={1}
+                offers={mockOffers}
               />
             </Provider>
           </BrowserRouter>

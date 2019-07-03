@@ -1,5 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {Review as ReviewProp} from '../../types';
+
+interface Props {
+  review: ReviewProp
+}
 
 const MONTHS = [
   `January`,
@@ -16,7 +20,7 @@ const MONTHS = [
   `December`
 ];
 
-const Review = (props) => {
+const Review = (props: Props) => {
   const {review} = props;
   const year = review.date.match(/^(\d){4}/)[0];
   const month = review.date.match(/-0((\d))/)[1] - 1;
@@ -43,21 +47,6 @@ const Review = (props) => {
       <time className="reviews__time" dateTime={review.date}>{MONTHS[month]} {year}</time>
     </div>
   </li>;
-};
-
-Review.propTypes = {
-  review: PropTypes.shape({
-    comment: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-      avatarUrl: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      isPro: PropTypes.bool.isRequired,
-    })
-  }),
 };
 
 export default Review;

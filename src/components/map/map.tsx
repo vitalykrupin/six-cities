@@ -1,8 +1,17 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import {Settings} from '../../constants';
+import {Place, City} from '../../types';
 
-class Map extends PureComponent {
+interface Props {
+  offers: Place[],
+  city: City,
+  leaflet: any,
+  activeCard: Place,
+  className: string,
+}
+
+class Map extends React.PureComponent<Props, null> {
+  map: any;
   constructor(props) {
     super(props);
 
@@ -46,7 +55,7 @@ class Map extends PureComponent {
   }
 
   _renderMap(offers, city, leaflet, activeCard = null) {
-    let settings = {};
+    let settings: any = {};
     const {latitude, longitude, zoom} = city.location;
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
@@ -102,33 +111,5 @@ class Map extends PureComponent {
     });
   }
 }
-
-Map.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    type: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    images: PropTypes.array.isRequired,
-    goods: PropTypes.array.isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    maxAdults: PropTypes.number.isRequired,
-    host: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    city: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      location: PropTypes.object.isRequired,
-    }).isRequired,
-  })).isRequired,
-  city: PropTypes.object.isRequired,
-  leaflet: PropTypes.object.isRequired,
-  activeCard: PropTypes.object,
-  className: PropTypes.string,
-};
 
 export default Map;

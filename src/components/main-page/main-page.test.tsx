@@ -1,10 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 import renderer from 'react-test-renderer';
 import {BrowserRouter} from 'react-router-dom';
+import leafletMock from '../../mocks/leaflet-mock';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import PlaceList from '../place-list/place-list';
+import {MainPage} from './main-page';
 import {Operation} from '../../reducer/data/data';
 import {Operation as OperationUser} from '../../reducer/user/user';
 import NameSpace from '../../reducer/name-space';
@@ -15,32 +16,38 @@ Operation.addToFavorites = () => (dispatch) => dispatch(jest.fn());
 Operation.deleteFromFavorites = () => (dispatch) => dispatch(jest.fn());
 OperationUser.authorizeUser = () => (dispatch) => dispatch(jest.fn());
 
-describe(`PlaceList`, () => {
+describe(`MainPage`, () => {
   const places = [
     {
       id: 1,
       title: `Strange place`,
       isPremium: true,
       price: 1200,
-      rating: 1.8,
+      rating: 1.5,
       isFavorite: false,
       description: ``,
       type: `Apartment`,
-      previewImage: ``,
-      images: [],
-      goods: [],
+      previewImage: `1.jpg`,
+      images: [`2.jpg`],
+      goods: [``],
       bedrooms: 2,
       maxAdults: 4,
-      host: {},
+      host: {
+        id: 2,
+        email: `y@ya.ru`,
+        name: `Alice`,
+        avatarUrl: `path`,
+        isPro: false
+      },
       location: {
-        atitude: 12,
+        latitude: 12,
         longitude: 87,
         zoom: 11,
       },
       city: {
         name: `Berlin`,
         location: {
-          atitude: 51,
+          latitude: 51,
           longitude: 7,
           zoom: 11,
         },
@@ -52,24 +59,30 @@ describe(`PlaceList`, () => {
       isPremium: true,
       price: 800,
       rating: 1.5,
-      isFavorite: true,
+      isFavorite: false,
       description: ``,
       type: `Private room`,
-      previewImage: ``,
-      images: [],
-      goods: [],
+      previewImage: `3.jpg`,
+      images: [`4.jpg`],
+      goods: [``],
       bedrooms: 2,
       maxAdults: 4,
-      host: {},
+      host: {
+        id: 3,
+        email: `t@ya.ru`,
+        name: `Alice`,
+        avatarUrl: `path`,
+        isPro: true
+      },
       location: {
-        atitude: 13,
+        latitude: 13,
         longitude: 88,
         zoom: 11,
       },
       city: {
         name: `Dusseldorf`,
         location: {
-          atitude: 52,
+          latitude: 52,
           longitude: 8,
           zoom: 11,
         },
@@ -122,14 +135,31 @@ describe(`PlaceList`, () => {
   };
   const store = mockStore(initialState);
 
+  const cities = [`Berlin`, `Dusseldorf`];
+
   it(`renders correctly`, () => {
     const tree = renderer
       .create(
           <BrowserRouter>
             <Provider store={store}>
-              <PlaceList
+              <MainPage
                 offers={places}
+                cities={[]}
+                city={{
+                  name: `Dusseldorf`,
+                  location: {
+                    latitude: 52,
+                    longitude: 8,
+                    zoom: 11,
+                  },
+                }}
+                onCityClick={jest.fn()}
+                leaflet={leafletMock}
                 onPlaceClick={jest.fn()}
+                activeCard={places[1]}
+                sortedOffers={places}
+                onSortingClick={jest.fn()}
+                activeSorting={1}
               />
             </Provider>
           </BrowserRouter>

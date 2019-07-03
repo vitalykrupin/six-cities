@@ -1,11 +1,24 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import {connect} from 'react-redux';
 import {Operation, ActionCreator} from '../../reducer/data/data';
 import {getIsReviewSending, getDidReviewSent, getError} from '../../reducer/data/selectors';
 import withValidated from '../../hocs/with-validated/with-validated';
 
-class SendReviewForm extends PureComponent {
+interface Props {
+  id: number,
+  onTextareaChange: ({}) => void,
+  onRadioClick: () => void,
+  isValidated: boolean,
+  isReviewSending: boolean,
+  sendError: string,
+  resetFormState: () => void,
+  updateForm: (arg: boolean) => void,
+  didReviewSent: boolean,
+  submitForm: ({rating: number, comment: string}, id: number) => void
+}
+
+class SendReviewForm extends React.PureComponent<Props, null> {
+  private formRef: React.RefObject<HTMLFormElement>;
   constructor(props) {
     super(props);
 
@@ -37,7 +50,7 @@ class SendReviewForm extends PureComponent {
       onSubmit={(evt) => {
         evt.preventDefault();
         resetFormState();
-        const data = new FormData(evt.target);
+        const data = new FormData(evt.currentTarget);
         this._handleFormSubmit(data.get(`review`), data.get(`rating`), id);
       }}
       ref={this.formRef}
@@ -107,19 +120,6 @@ class SendReviewForm extends PureComponent {
     this.props.submitForm(review, id);
   }
 }
-
-SendReviewForm.propTypes = {
-  submitForm: PropTypes.func.isRequired,
-  updateForm: PropTypes.func.isRequired,
-  onTextareaChange: PropTypes.func.isRequired,
-  onRadioClick: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
-  isValidated: PropTypes.bool.isRequired,
-  isReviewSending: PropTypes.bool.isRequired,
-  didReviewSent: PropTypes.bool.isRequired,
-  sendError: PropTypes.string,
-  resetFormState: PropTypes.func
-};
 
 const mapStateToProps = (state) => ({
   isReviewSending: getIsReviewSending(state),

@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import renderer from 'react-test-renderer';
-import {Sortings} from '../sortings/sortings';
+import {Sortings} from './sortings';
 
 describe(`Sortings`, () => {
   it(`renders correctly`, () => {

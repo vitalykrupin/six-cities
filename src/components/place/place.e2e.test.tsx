@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {Place} from '../place/place';
+import {Place} from './place';
 
 Enzyme.configure({adapter: new Adapter()});
 const offers = [
@@ -14,21 +14,27 @@ const offers = [
     isFavorite: false,
     description: ``,
     type: `Apartment`,
-    previewImage: ``,
-    images: [``],
+    previewImage: `2.jpg`,
+    images: [`3.jpg`],
     goods: [``],
     bedrooms: 2,
     maxAdults: 4,
-    host: {},
+    host: {
+      id: 2,
+        email: `y@ya.ru`,
+        name: `Alice`,
+        avatarUrl: `path`,
+        isPro: false
+    },
     location: {
-      atitude: 12,
+      latitude: 12,
       longitude: 87,
       zoom: 11,
     },
     city: {
       name: `Berlin`,
       location: {
-        atitude: 51,
+        latitude: 51,
         longitude: 7,
         zoom: 11,
       },
@@ -43,21 +49,27 @@ const offers = [
     isFavorite: false,
     description: ``,
     type: `Private room`,
-    previewImage: ``,
-    images: [``],
+    previewImage: `6.jpg`,
+    images: [`5.jpg`],
     goods: [``],
     bedrooms: 2,
     maxAdults: 4,
-    host: {},
+    host: {
+      id: 3,
+      email: `t@ya.ru`,
+      name: `Alice`,
+      avatarUrl: `path`,
+      isPro: true
+    },
     location: {
-      atitude: 13,
+      latitude: 13,
       longitude: 88,
       zoom: 11,
     },
     city: {
       name: `Dusseldorf`,
       location: {
-        atitude: 52,
+        latitude: 52,
         longitude: 8,
         zoom: 11,
       },
@@ -73,21 +85,27 @@ const mockObj = {
   isFavorite: false,
   description: ``,
   type: `Apartment`,
-  previewImage: ``,
-  images: [``],
+  previewImage: `7.jpg`,
+  images: [`6.jpg`],
   goods: [``],
   bedrooms: 2,
   maxAdults: 4,
-  host: {},
+  host: {
+    id: 2,
+    email: `y@ya.ru`,
+    name: `Alice`,
+    avatarUrl: `path`,
+    isPro: false
+  },
   location: {
-    atitude: 12,
+    latitude: 12,
     longitude: 87,
     zoom: 11,
   },
   city: {
     name: `Berlin`,
     location: {
-      atitude: 51,
+      latitude: 51,
       longitude: 7,
       zoom: 11,
     },
@@ -109,8 +127,6 @@ beforeEach(() => {
         onPlaceClick={() => {
           placeObj = mockObj;
         }}
-        setHighlightedItem={handleClick}
-        active={false}
       />);
   placeDescription = placeElement.find(`Link`);
   image = placeElement.find(`.place-card__image-wrapper a`);

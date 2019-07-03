@@ -1,7 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {City} from '../../types';
 
-const MainPageEmpty = (props) => {
+interface Props {
+  city: City
+}
+
+const MainPageEmpty = (props: Props) => {
   const {city} = props;
 
   return <main className="page__main page__main--index page__main--index-empty">
@@ -55,10 +59,6 @@ const MainPageEmpty = (props) => {
       </div>
     </div>
   </main>;
-};
-
-MainPageEmpty.propTypes = {
-  city: PropTypes.object.isRequired,
 };
 
 export default MainPageEmpty;

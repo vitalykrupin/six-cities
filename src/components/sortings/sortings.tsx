@@ -1,6 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import withSortings from '../../hocs/with-sortings/with-sortings';
+
+interface Props {
+  onSortingsClick: () => void,
+  onSortingClick: (index: number) => void,
+  onMouseLeave: () => void,
+  opened: boolean,
+  activeSorting: number
+}
 
 const sortings = [
   `Popular`,
@@ -9,7 +16,7 @@ const sortings = [
   `Top rated first`
 ];
 
-const Sortings = (props) => {
+const Sortings = (props: Props) => {
   const {
     onSortingsClick,
     onSortingClick,
@@ -20,7 +27,7 @@ const Sortings = (props) => {
 
   return <form className="places__sorting" action="#" method="get">
     <span className="places__sorting-caption">Sort by </span>
-    <span className="places__sorting-type" tabIndex="0" onClick={() => onSortingsClick()}>
+    <span className="places__sorting-type" tabIndex={0} onClick={() => onSortingsClick()}>
       {sortings[activeSorting]}
       <svg className="places__sorting-arrow" width="7" height="4">
         <use xlinkHref="#icon-arrow-select"/>
@@ -32,17 +39,9 @@ const Sortings = (props) => {
     >
       {sortings.map((item, index) => <li className={`places__option ${index === activeSorting
         ? `places__option--active`
-        : ``}`} tabIndex="0" key={`Sorting-${item}`} onClick={() => onSortingClick(index)}>{item}</li>)}
+        : ``}`} tabIndex={0} key={`Sorting-${item}`} onClick={() => onSortingClick(index)}>{item}</li>)}
     </ul>
   </form>;
-};
-
-Sortings.propTypes = {
-  onSortingsClick: PropTypes.func.isRequired,
-  onSortingClick: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
-  opened: PropTypes.bool.isRequired,
-  activeSorting: PropTypes.number.isRequired,
 };
 
 export {Sortings};
