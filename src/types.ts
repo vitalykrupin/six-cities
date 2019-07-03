@@ -1,5 +1,5 @@
 interface Location {
-  latitude: number
+  latitude: number,
   longitude: number,
   zoom: number
 }

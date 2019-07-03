@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import * as React from 'react';
 import {connect} from 'react-redux';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import MainPage from '../main-page/main-page';
@@ -12,8 +12,20 @@ import {Operation as UserOperation} from '../../reducer/user/user';
 import {getCity, getOffers} from '../../reducer/data/selectors';
 import {getAuthorizationStatus, getUserData} from '../../reducer/user/selectors';
 import withPrivateRoute from '../../hocs/with-private-route/with-private-route';
+import {Place, City, User} from '../../types';
 
-class App extends PureComponent {
+interface Props {
+  offers: Place[],
+  onLogIn: () => void,
+  onLoadOffers: () => void,
+  leaflet: any,
+  city: City,
+  user: User,
+  isAuthorizationRequired: boolean,
+  onCityClick: (selectedCity: string, offers: Place[]) => void
+}
+
+class App extends React.PureComponent<Props, null> {
   constructor(props) {
     super(props);
   }

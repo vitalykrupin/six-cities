@@ -1,13 +1,18 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {Operation} from '../../reducer/user/user';
 import {getFavorites} from '../../reducer/user/selectors';
 import PlaceList from '../place-list/place-list';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
+import {Place} from '../../types';
 
-class Favorites extends PureComponent {
+interface Props {
+  onLoadFavorites: () => void,
+  favorites: Place[]
+}
+
+class Favorites extends React.PureComponent<Props, null> {
   constructor(props) {
     super(props);
   }
@@ -35,7 +40,7 @@ class Favorites extends PureComponent {
   _renderFavorites(favorites) {
     const preparedFavorites = this._getFavoritesByCities(favorites);
 
-    return <>
+    return <React.Fragment>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -72,7 +77,7 @@ class Favorites extends PureComponent {
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
         </Link>
       </footer>
-    </>;
+    </React.Fragment>;
   }
 
   _getFavoritesByCities(favorites) {
@@ -87,31 +92,6 @@ class Favorites extends PureComponent {
     }, []);
   }
 }
-
-Favorites.propTypes = {
-  onLoadFavorites: PropTypes.func.isRequired,
-  favorites: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    type: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    images: PropTypes.array.isRequired,
-    goods: PropTypes.array.isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    maxAdults: PropTypes.number.isRequired,
-    host: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    city: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      location: PropTypes.object.isRequired,
-    }).isRequired,
-  })),
-};
 
 const mapStateToProps = (state) => ({
   favorites: getFavorites(state),
