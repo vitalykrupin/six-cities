@@ -4,11 +4,6 @@ interface Location {
   zoom: number
 }
 
-export interface City {
-  name: string,
-  location: Location
-}
-
 interface Host {
   id: number,
   name: string,
@@ -33,6 +28,11 @@ export interface Place {
   description: string,
   location: Location,
   id: number,
+}
+
+export interface City {
+  name: string,
+  location: Location
 }
 
 export interface User {
