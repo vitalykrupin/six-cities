@@ -113,7 +113,7 @@ exports[`MainPageEmpty renders correctly 1`] = `
             className="cities__status-description"
           >
             We could not find any property availbale at the moment in 
-            Berlin, gelibte
+            Berlin
           </p>
         </div>
       </section>

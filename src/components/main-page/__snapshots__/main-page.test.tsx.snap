@@ -15,34 +15,7 @@ Array [
     >
       <ul
         className="locations__list tabs__list"
-      >
-        <li
-          className="locations__item"
-          onClick={[Function]}
-        >
-          <a
-            className="locations__item-link tabs__item"
-            href="#"
-          >
-            <span>
-              Berlin
-            </span>
-          </a>
-        </li>
-        <li
-          className="locations__item"
-          onClick={[Function]}
-        >
-          <a
-            className="locations__item-link tabs__item tabs__item--active"
-            href="#"
-          >
-            <span>
-              Dusseldorf
-            </span>
-          </a>
-        </li>
-      </ul>
+      />
     </section>
   </div>,
   <div
@@ -77,7 +50,7 @@ Array [
           <span
             className="places__sorting-type"
             onClick={[Function]}
-            tabIndex="0"
+            tabIndex={0}
           >
             Price: low to high
             <svg
@@ -97,28 +70,28 @@ Array [
             <li
               className="places__option "
               onClick={[Function]}
-              tabIndex="0"
+              tabIndex={0}
             >
               Popular
             </li>
             <li
               className="places__option places__option--active"
               onClick={[Function]}
-              tabIndex="0"
+              tabIndex={0}
             >
               Price: low to high
             </li>
             <li
               className="places__option "
               onClick={[Function]}
-              tabIndex="0"
+              tabIndex={0}
             >
               Price: high to low
             </li>
             <li
               className="places__option "
               onClick={[Function]}
-              tabIndex="0"
+              tabIndex={0}
             >
               Top rated first
             </li>
@@ -147,7 +120,7 @@ Array [
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src=""
+                  src="1.jpg"
                   width="260"
                 />
               </a>
@@ -251,7 +224,7 @@ Array [
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src=""
+                  src="3.jpg"
                   width="260"
                 />
               </a>

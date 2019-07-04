@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
-import AddFavoritesButton from './add-favorites-button';
+import {AddFavoritesButton} from './add-favorites-button';
 
 const place = {
   id: 1,
@@ -16,7 +16,12 @@ const place = {
   goods: [``],
   bedrooms: 2,
   maxAdults: 4,
-  host: {},
+  host: {
+    id: 3,
+    name: `Alice`,
+    isPro: false,
+    avatarUrl: `path`
+  },
   location: {
     latitude: 12,
     longitude: 87,
@@ -42,6 +47,8 @@ describe(`AddFavoritesButton`, () => {
             deleteFromFavorites={jest.fn()}
             isAuthorizationRequired={true}
             className={`property`}
+            fromRoom={false}
+            history={{push: jest.fn()}}
           />)
       .toJSON();
 

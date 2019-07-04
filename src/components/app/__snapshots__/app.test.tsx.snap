@@ -174,7 +174,7 @@ exports[`App renders correctly 1`] = `
           <span
             className="places__sorting-type"
             onClick={[Function]}
-            tabIndex="0"
+            tabIndex={0}
           >
             Popular
             <svg
@@ -194,28 +194,28 @@ exports[`App renders correctly 1`] = `
             <li
               className="places__option places__option--active"
               onClick={[Function]}
-              tabIndex="0"
+              tabIndex={0}
             >
               Popular
             </li>
             <li
               className="places__option "
               onClick={[Function]}
-              tabIndex="0"
+              tabIndex={0}
             >
               Price: low to high
             </li>
             <li
               className="places__option "
               onClick={[Function]}
-              tabIndex="0"
+              tabIndex={0}
             >
               Price: high to low
             </li>
             <li
               className="places__option "
               onClick={[Function]}
-              tabIndex="0"
+              tabIndex={0}
             >
               Top rated first
             </li>
@@ -244,7 +244,7 @@ exports[`App renders correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src=""
+                  src="1.jpg"
                   width="260"
                 />
               </a>

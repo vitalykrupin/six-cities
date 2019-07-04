@@ -1,5 +1,5 @@
 import * as React from 'react';
-import renderer from 'react-test-renderer';
+import * as renderer from 'react-test-renderer';
 import Map from './map';
 import leafletMock from '../../mocks/leaflet-mock';
 

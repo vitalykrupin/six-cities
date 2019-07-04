@@ -12,7 +12,17 @@ exports[`Room renders correctly 1`] = `
     >
       <div
         className="property__gallery"
-      />
+      >
+        <div
+          className="property__image-wrapper"
+        >
+          <img
+            alt="Photo studio"
+            className="property__image"
+            src="2.jpg"
+          />
+        </div>
+      </div>
     </div>
     <div
       className="property__container container"
@@ -142,19 +152,26 @@ exports[`Room renders correctly 1`] = `
             className="property__host-user user"
           >
             <div
-              className="property__avatar-wrapper  user__avatar-wrapper"
+              className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper"
             >
               <img
                 alt="Host avatar"
                 className="property__avatar user__avatar"
                 height="74"
-                src="undefined"
+                src="path"
                 width="74"
               />
             </div>
             <span
               className="property__user-name"
-            />
+            >
+              Den
+            </span>
+            <span
+              className="property__user-status"
+            >
+              Pro
+            </span>
           </div>
           <div
             className="property__description"
@@ -533,7 +550,7 @@ exports[`Room renders correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src=""
+                  src="3.jpg"
                   width="260"
                 />
               </a>
@@ -551,7 +568,7 @@ exports[`Room renders correctly 1`] = `
                     className="place-card__price-value"
                   >
                     €
-                    800
+                    1200
                   </b>
                   <span
                     className="place-card__price-text"
@@ -560,7 +577,7 @@ exports[`Room renders correctly 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button place-card__bookmark-button--active"
+                  className="place-card__bookmark-button button "
                   onClick={[Function]}
                   type="button"
                 >
@@ -589,7 +606,7 @@ exports[`Room renders correctly 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "30%",
+                        "width": "36%",
                       }
                     }
                   />
@@ -604,16 +621,16 @@ exports[`Room renders correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="/offer/2"
+                  href="/offer/1"
                   onClick={[Function]}
                 >
-                  Weird place
+                  Strange place
                 </a>
               </h2>
               <p
                 className="place-card__type"
               >
-                Private room
+                Apartment
               </p>
             </div>
           </article>

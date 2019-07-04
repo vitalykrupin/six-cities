@@ -53,7 +53,16 @@ exports[`SignIn renders correctly 1`] = `
             type="password"
           />
         </div>
-        
+        <span
+          className="login__error"
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          no
+        </span>
         <button
           className="login__submit form__submit button"
           type="submit"

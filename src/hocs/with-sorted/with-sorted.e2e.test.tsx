@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 import withSorted from './with-sorted';
 
 Enzyme.configure({adapter: new Adapter()});
@@ -24,14 +24,14 @@ const offers = [
     maxAdults: 4,
     host: {},
     location: {
-      atitude: 12,
+      latitude: 12,
       longitude: 87,
       zoom: 11,
     },
     city: {
       name: `Berlin`,
       location: {
-        atitude: 51,
+        latitude: 51,
         longitude: 7,
         zoom: 11,
       },
@@ -53,14 +53,14 @@ const offers = [
     maxAdults: 4,
     host: {},
     location: {
-      atitude: 13,
+      latitude: 13,
       longitude: 88,
       zoom: 11,
     },
     city: {
       name: `Berlin`,
       location: {
-        atitude: 52,
+        latitude: 52,
         longitude: 8,
         zoom: 11,
       },
@@ -69,7 +69,7 @@ const offers = [
 ];
 
 it(`Should sort offers by price`, () => {
-  const wrapper = shallow(<MockWrapped
+  const wrapper = Enzyme.shallow(<MockWrapped
     onSortingClick={jest.fn()}
     sortedOffers={[]}
     activeSorting={0}
@@ -162,14 +162,14 @@ it(`Should sort offers by price`, () => {
       maxAdults: 4,
       host: {},
       location: {
-        atitude: 12,
+        latitude: 12,
         longitude: 87,
         zoom: 11,
       },
       city: {
         name: `Berlin`,
         location: {
-          atitude: 51,
+          latitude: 51,
           longitude: 7,
           zoom: 11,
         },
@@ -191,14 +191,14 @@ it(`Should sort offers by price`, () => {
       maxAdults: 4,
       host: {},
       location: {
-        atitude: 13,
+        latitude: 13,
         longitude: 88,
         zoom: 11,
       },
       city: {
         name: `Berlin`,
         location: {
-          atitude: 52,
+          latitude: 52,
           longitude: 8,
           zoom: 11,
         },

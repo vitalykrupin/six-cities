@@ -21,7 +21,7 @@ exports[`Place renders correctly 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
-        src=""
+        src="3.jpg"
         width="260"
       />
     </a>

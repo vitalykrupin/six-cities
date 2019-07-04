@@ -156,7 +156,7 @@ exports[`SendReviewForm renders correctly 1`] = `
         }
       }
     >
-      
+      no
     </p>
     <p
       className="reviews__help"
