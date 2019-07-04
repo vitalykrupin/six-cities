@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import renderer from 'react-test-renderer';
 import {BrowserRouter} from 'react-router-dom';
 import leafletMock from '../../mocks/leaflet-mock';
@@ -27,21 +27,27 @@ describe(`App`, () => {
       isFavorite: false,
       description: ``,
       type: `Apartment`,
-      previewImage: ``,
-      images: [``],
+      previewImage: `1.jpg`,
+      images: [`2.jpg`],
       goods: [``],
       bedrooms: 2,
       maxAdults: 4,
-      host: {},
+      host: {
+        id: 3,
+        email: `t@ya.ru`,
+        name: `Alice`,
+        avatarUrl: `path`,
+        isPro: true
+      },
       location: {
-        atitude: 12,
+        latitude: 12,
         longitude: 87,
         zoom: 11,
       },
       city: {
         name: `Berlin`,
         location: {
-          atitude: 51,
+          latitude: 51,
           longitude: 7,
           zoom: 11,
         },
@@ -56,21 +62,27 @@ describe(`App`, () => {
       isFavorite: false,
       description: ``,
       type: `Private room`,
-      previewImage: ``,
-      images: [``],
+      previewImage: `3.jpg`,
+      images: [`4.jpg`],
       goods: [``],
       bedrooms: 2,
       maxAdults: 4,
-      host: {},
+      host: {
+        id: 2,
+        email: `y@ya.ru`,
+        name: `Alice`,
+        avatarUrl: `path`,
+        isPro: false
+      },
       location: {
-        atitude: 13,
+        latitude: 13,
         longitude: 88,
         zoom: 11,
       },
       city: {
         name: `Dusseldorf`,
         location: {
-          atitude: 52,
+          latitude: 52,
           longitude: 8,
           zoom: 11,
         },
@@ -137,6 +149,10 @@ describe(`App`, () => {
                 onLoadOffers={jest.fn()}
                 isAuthorizationRequired={true}
                 user={{
+                  id: 1,
+                  email: `t@ya.ru`,
+                  name: `Alice`,
+                  isPro: true,
                   avatarUrl: `/path.jpg`,
                 }}
               />

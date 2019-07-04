@@ -1,8 +1,23 @@
-import React, {PureComponent} from 'react';
+import * as React from 'react';
 import {CommentLength} from '../../constants';
+import {Subtract} from 'utility-types';
+
+interface State {
+  isRadioPressed: boolean,
+  isValidated: boolean,
+  isTextareaFilled: boolean
+}
+
+interface InjectedProps {
+  onTextareaChange: () => void,
+  onRadioClick: () => void,
+  isValidated: boolean,
+}
 
 const withValidated = (Component) => {
-  class WithValidated extends PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectedProps>;
+  class WithValidated extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 

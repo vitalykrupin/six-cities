@@ -1,5 +1,5 @@
 import * as React from 'react';
-import renderer from 'react-test-renderer';
+import * as renderer from 'react-test-renderer';
 import AddFavoritesButton from './add-favorites-button';
 
 const place = {
@@ -18,14 +18,14 @@ const place = {
   maxAdults: 4,
   host: {},
   location: {
-    atitude: 12,
+    latitude: 12,
     longitude: 87,
     zoom: 11,
   },
   city: {
     name: `Berlin`,
     location: {
-      atitude: 51,
+      latitude: 51,
       longitude: 7,
       zoom: 11,
     },

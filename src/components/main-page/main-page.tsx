@@ -12,10 +12,10 @@ interface Props {
   leaflet: any,
   offers: Place[],
   city: City,
-  onCityClick,
-  onPlaceClick,
+  onCityClick: () => void,
+  onPlaceClick: () => void,
   activeCard: Place,
-  onSortingClick,
+  onSortingClick: () => void,
   sortedOffers: Place[],
   activeSorting: number
 }
@@ -38,7 +38,7 @@ const MainPage = (props: Props) => {
     ? offers.filter((item) => item.city.name === city.name)
     : sortedOffers;
 
-  return <>
+  return <React.Fragment>
     <h1 className="visually-hidden">Cities</h1>
     <div className="cities tabs">
       <section className="locations container">
@@ -73,11 +73,12 @@ const MainPage = (props: Props) => {
             city={city}
             leaflet={leaflet}
             activeCard={activeCard}
+            className={``}
           />
         </div>
       </div>
     </div>
-  </>;
+  </React.Fragment>;
 };
 
 export {MainPage};
