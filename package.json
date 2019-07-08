@@ -4,7 +4,7 @@
   "private": true,
   "description": "Личный проект «Шесть городов» от HTML Academy",
   "scripts": {
-    "eslint": "eslint src/**/*.js src/**/*.jsx",
+    "eslint": "eslint src/**/*.js",
     "test": "npm run eslint && jest",
     "build": "webpack --mode development",
     "start": "webpack-dev-server --open"
@@ -13,6 +13,8 @@
     "@babel/core": "7.4.4",
     "@babel/preset-env": "7.4.4",
     "@babel/preset-react": "7.0.0",
+    "@types/jest": "24.0.15",
+    "@types/react": "16.8.22",
     "axios-mock-adapter": "1.16.0",
     "babel-jest": "24.8.0",
     "babel-loader": "8.0.5",
@@ -24,7 +26,12 @@
     "eslint-plugin-react": "7.12.4",
     "jest": "24.8.0",
     "react-test-renderer": "16.8.6",
+    "redux-devtools-extension": "2.13.8",
     "redux-mock-store": "1.5.3",
+    "ts-jest": "24.0.2",
+    "ts-loader": "6.0.4",
+    "typescript": "3.5.2",
+    "utility-types": "3.7.0",
     "webpack": "4.30.0",
     "webpack-cli": "3.3.1",
     "webpack-dev-server": "3.3.1"
@@ -36,12 +43,10 @@
     "axios": "0.18.0",
     "history": "4.9.0",
     "leaflet": "1.5.1",
-    "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-redux": "7.0.3",
     "react-router-dom": "5.0.1",
-    "recompose": "0.30.0",
     "redux": "4.0.1",
     "redux-thunk": "2.3.0",
     "reselect": "4.0.0"
